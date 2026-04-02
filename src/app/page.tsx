@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
+import { LayoutTemplate, Search, Palette, PenTool, ShoppingCart } from 'lucide-react';
 import SectionReveal from '@/components/SectionReveal';
 import ContactPopup from '@/components/ContactPopup';
 
@@ -10,31 +11,31 @@ import ContactPopup from '@/components/ContactPopup';
 const services = [
   {
     num: '01',
-    letter: 'W',
+    icon: LayoutTemplate,
     title: 'WEB DESIGN',
     desc: 'Custom websites engineered to convert. We craft pixel-perfect, responsive experiences that capture your brand and drive measurable results.',
   },
   {
     num: '02',
-    letter: 'S',
+    icon: Search,
     title: 'SEO',
     desc: 'Dominate search results with data-driven optimization strategies. We put your business in front of the right audience at the right time.',
   },
   {
     num: '03',
-    letter: 'L',
+    icon: Palette,
     title: 'LOGO DESIGN',
     desc: 'Memorable brand identities that stand out in any market. From concept to final mark, we design logos that tell your story at a glance.',
   },
   {
     num: '04',
-    letter: 'C',
+    icon: PenTool,
     title: 'COPYWRITING',
     desc: 'Words that sell. Our conversion-focused copy speaks directly to your audience and compels them to take action.',
   },
   {
     num: '05',
-    letter: 'E',
+    icon: ShoppingCart,
     title: 'E-COMMERCE',
     desc: 'Online stores built to scale. Secure payment processing, intuitive product management, and checkout flows designed to maximize revenue.',
   },
@@ -226,7 +227,7 @@ export default function Home() {
               Into{' '}
               <span className="font-serif italic gradient-text">Clients</span>
             </h1>
-            <p className="text-lg md:text-xl max-w-xl mb-10 leading-relaxed text-white/80">
+            <p className="text-lg md:text-xl max-w-xl mb-10 leading-relaxed text-muted">
               Premium web design and digital marketing for businesses in
               Virginia Beach and beyond. Your growth is our craft.
             </p>
@@ -265,10 +266,20 @@ export default function Home() {
 
       {/* ════════════════════════════════ SERVICES ════════════════════════════════ */}
       <section className="py-32 px-6 relative" id="services">
+        {/* SVG gradient definition for icons */}
+        <svg width="0" height="0" className="absolute">
+          <defs>
+            <linearGradient id="icon-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stopColor="var(--color-accent-pink)" />
+              <stop offset="100%" stopColor="var(--color-accent-purple)" />
+            </linearGradient>
+          </defs>
+        </svg>
         <div className="max-w-7xl mx-auto">
           <SectionReveal>
-            <h2 className="text-6xl md:text-8xl font-medium text-center mb-20 tracking-tight">
-              SERVICES
+            <h2 className="text-4xl md:text-6xl font-medium text-center mb-20 tracking-tight">
+              Our
+              <span className="font-serif italic gradient-text"> Services</span>
             </h2>
           </SectionReveal>
 
@@ -295,8 +306,8 @@ export default function Home() {
                     </svg>
                   </div>
                   <span className="text-sm text-muted">{service.num}</span>
-                  <div className="text-7xl font-medium gradient-text my-4 group-hover:scale-110 transition-transform duration-500 origin-left">
-                    {service.letter}
+                  <div className="my-4 group-hover:scale-110 transition-transform duration-500 origin-left">
+                    <service.icon className="w-12 h-12 stroke-[1.5]" style={{ stroke: 'url(#icon-gradient)' }} />
                   </div>
                   <h3 className="text-lg font-medium tracking-wide mb-3">
                     {service.title}
@@ -457,9 +468,9 @@ export default function Home() {
             <div>
               <SectionReveal>
                 <h2 className="text-5xl md:text-7xl font-medium leading-[0.95] mb-16">
-                  WHY
+                  Why
                   <br />
-                  <span className="gradient-text">CHOOSE US</span>
+                  <span className="font-serif italic gradient-text">Choose Us</span>
                 </h2>
               </SectionReveal>
 
