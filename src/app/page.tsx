@@ -3,7 +3,13 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
-import { LayoutTemplate, Search, Palette, PenTool, ShoppingCart } from 'lucide-react';
+import {
+  LayoutTemplate,
+  Search,
+  Palette,
+  PenTool,
+  ShoppingCart,
+} from 'lucide-react';
 import SectionReveal from '@/components/SectionReveal';
 import ContactPopup from '@/components/ContactPopup';
 
@@ -240,7 +246,7 @@ export default function Home() {
               </button>
               <Link
                 href="/work"
-                className="w-full sm:w-auto text-center px-8 py-4 rounded-full border border-card-border text-foreground font-medium hover:border-accent-purple/50 hover:text-accent-purple transition-all duration-300 gradient-border"
+                className="w-full sm:w-auto text-center px-8 py-4 rounded-full border border-card-border text-foreground font-medium hover:border-accent-purple hover:text-white hover:bg-accent-purple/20 hover:shadow-lg hover:shadow-accent-purple/20 transition-all duration-300 gradient-border"
               >
                 View Our Work
               </Link>
@@ -269,7 +275,13 @@ export default function Home() {
         {/* SVG gradient definition for icons */}
         <svg width="0" height="0" className="absolute">
           <defs>
-            <linearGradient id="icon-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+            <linearGradient
+              id="icon-gradient"
+              x1="0%"
+              y1="0%"
+              x2="100%"
+              y2="100%"
+            >
               <stop offset="0%" stopColor="var(--color-accent-pink)" />
               <stop offset="100%" stopColor="var(--color-accent-purple)" />
             </linearGradient>
@@ -307,7 +319,10 @@ export default function Home() {
                   </div>
                   <span className="text-sm text-muted">{service.num}</span>
                   <div className="my-4 group-hover:scale-110 transition-transform duration-500 origin-left">
-                    <service.icon className="w-12 h-12 stroke-[1.5]" style={{ stroke: 'url(#icon-gradient)' }} />
+                    <service.icon
+                      className="w-12 h-12 stroke-[1.5]"
+                      style={{ stroke: 'url(#icon-gradient)' }}
+                    />
                   </div>
                   <h3 className="text-lg font-medium tracking-wide mb-3">
                     {service.title}
@@ -397,14 +412,14 @@ export default function Home() {
                   direction="left"
                 >
                   <div className="border-b border-card-border pb-8">
-                    <span className="text-5xl md:text-6xl font-medium gradient-text">
+                    <span className="text-5xl md:text-7xl font-bold gradient-text tracking-tight">
                       {stat.value}
                     </span>
                     <p className="mt-2 text-muted">
                       <span className="text-foreground font-medium">
                         {stat.label}
                       </span>{' '}
-                      {stat.detail}
+                      <span className="text-sm text-muted">{stat.detail}</span>
                     </p>
                   </div>
                 </SectionReveal>
@@ -470,7 +485,9 @@ export default function Home() {
                 <h2 className="text-5xl md:text-7xl font-medium leading-[0.95] mb-16">
                   Why
                   <br />
-                  <span className="font-serif italic gradient-text">Choose Us</span>
+                  <span className="font-serif italic gradient-text">
+                    Choose Us
+                  </span>
                 </h2>
               </SectionReveal>
 

@@ -18,15 +18,37 @@ export default function ContactPopup({ open, onClose }: ContactPopupProps) {
     message: '',
   });
   const [submitted, setSubmitted] = useState(false);
+  const [sending, setSending] = useState(false);
+  const [error, setError] = useState('');
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSubmitted(true);
-    setTimeout(() => {
-      setSubmitted(false);
-      setFormData({ name: '', email: '', phone: '', company: '', service: '', message: '' });
-      onClose();
-    }, 2500);
+    setSending(true);
+    setError('');
+
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      });
+
+      if (!res.ok) {
+        const data = await res.json();
+        throw new Error(data.error || 'Something went wrong.');
+      }
+
+      setSubmitted(true);
+      setTimeout(() => {
+        setSubmitted(false);
+        setFormData({ name: '', email: '', phone: '', company: '', service: '', message: '' });
+        onClose();
+      }, 2500);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Failed to send. Please try again.');
+    } finally {
+      setSending(false);
+    }
   };
 
   return (
@@ -137,11 +159,15 @@ export default function ContactPopup({ open, onClose }: ContactPopupProps) {
                       onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                       className="w-full px-4 py-3 rounded-lg bg-foreground/5 border border-card-border text-foreground placeholder:text-muted/60 text-sm focus:outline-none focus:border-accent-purple transition-colors resize-none"
                     />
+                    {error && (
+                      <p className="text-red-400 text-sm text-center">{error}</p>
+                    )}
                     <button
                       type="submit"
-                      className="w-full py-3 rounded-lg bg-gradient-to-r from-accent-pink to-accent-purple text-white font-medium text-sm hover:shadow-lg hover:shadow-accent-purple/25 transition-all duration-300 hover:scale-[1.02] cursor-pointer"
+                      disabled={sending}
+                      className="w-full py-3 rounded-lg bg-gradient-to-r from-accent-pink to-accent-purple text-white font-medium text-sm hover:shadow-lg hover:shadow-accent-purple/25 transition-all duration-300 hover:scale-[1.02] cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:scale-100"
                     >
-                      Send Message
+                      {sending ? 'Sending...' : 'Send Message'}
                     </button>
                   </form>
                 </>

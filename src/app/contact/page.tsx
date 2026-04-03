@@ -14,10 +14,32 @@ export default function ContactPage() {
     message: '',
   });
   const [submitted, setSubmitted] = useState(false);
+  const [sending, setSending] = useState(false);
+  const [error, setError] = useState('');
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSubmitted(true);
+    setSending(true);
+    setError('');
+
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      });
+
+      if (!res.ok) {
+        const data = await res.json();
+        throw new Error(data.error || 'Something went wrong.');
+      }
+
+      setSubmitted(true);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Failed to send. Please try again.');
+    } finally {
+      setSending(false);
+    }
   };
 
   return (
@@ -202,11 +224,15 @@ export default function ContactPage() {
                           placeholder="Tell us about your project, timeline, and budget..."
                         />
                       </div>
+                      {error && (
+                        <p className="text-red-400 text-sm text-center">{error}</p>
+                      )}
                       <button
                         type="submit"
-                        className="w-full py-4 rounded-lg bg-gradient-to-r from-accent-pink to-accent-purple text-white font-medium text-lg hover:shadow-xl hover:shadow-accent-purple/20 transition-all duration-300 hover:scale-[1.02]"
+                        disabled={sending}
+                        className="w-full py-4 rounded-lg bg-gradient-to-r from-accent-pink to-accent-purple text-white font-medium text-lg hover:shadow-xl hover:shadow-accent-purple/20 transition-all duration-300 hover:scale-[1.02] disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:scale-100"
                       >
-                        Send Message
+                        {sending ? 'Sending...' : 'Send Message'}
                       </button>
                       <p className="text-xs text-muted text-center">
                         We typically respond within 24 hours during business days.

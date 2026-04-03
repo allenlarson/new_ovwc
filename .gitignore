@@ -43,3 +43,5 @@ next-env.d.ts
 # Source images (too large for git)
 src/app/work/images/
 .claude/
+
+.vercel
