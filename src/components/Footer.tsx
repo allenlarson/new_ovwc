@@ -31,23 +31,43 @@ export default function Footer() {
               <Logo className="h-10 w-auto" />
             </Link>
             <p className="text-sm text-muted leading-relaxed mb-6">
-              Premium web design and digital marketing for businesses that demand results.
+              Premium web design and digital marketing for businesses that
+              demand results.
             </p>
             <div className="flex gap-4">
               {/* Social icons */}
               {[
-                { label: 'Facebook', path: 'M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z' },
-                { label: 'Instagram', path: 'M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37zm1.5-4.87h.01M6.5 2h11A4.5 4.5 0 0122 6.5v11a4.5 4.5 0 01-4.5 4.5h-11A4.5 4.5 0 012 17.5v-11A4.5 4.5 0 016.5 2z' },
-                { label: 'LinkedIn', path: 'M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2zM4 2a2 2 0 110 4 2 2 0 010-4z' },
-              ].map((social) => (
+                {
+                  label: 'Facebook',
+                  path: 'M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z',
+                },
+                {
+                  label: 'Instagram',
+                  path: 'M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37zm1.5-4.87h.01M6.5 2h11A4.5 4.5 0 0122 6.5v11a4.5 4.5 0 01-4.5 4.5h-11A4.5 4.5 0 012 17.5v-11A4.5 4.5 0 016.5 2z',
+                },
+                {
+                  label: 'LinkedIn',
+                  path: 'M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2zM4 2a2 2 0 110 4 2 2 0 010-4z',
+                },
+              ].map(social => (
                 <a
                   key={social.label}
                   href="#"
                   aria-label={social.label}
                   className="w-10 h-10 rounded-full border border-card-border flex items-center justify-center hover:border-accent-pink hover:text-accent-pink transition-colors"
                 >
-                  <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d={social.path} />
+                  <svg
+                    className="w-4 h-4"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    strokeWidth={1.5}
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d={social.path}
+                    />
                   </svg>
                 </a>
               ))}
@@ -57,9 +77,11 @@ export default function Footer() {
           {/* Links */}
           {Object.entries(footerLinks).map(([title, links]) => (
             <div key={title}>
-              <h4 className="text-sm font-medium uppercase tracking-wider mb-4">{title}</h4>
+              <h4 className="text-sm font-medium uppercase tracking-wider mb-4">
+                {title}
+              </h4>
               <ul className="space-y-3">
-                {links.map((link) => (
+                {links.map(link => (
                   <li key={link.href}>
                     <Link
                       href={link.href}
@@ -75,16 +97,24 @@ export default function Footer() {
 
           {/* Contact */}
           <div>
-            <h4 className="text-sm font-medium uppercase tracking-wider mb-4">Contact</h4>
+            <h4 className="text-sm font-medium uppercase tracking-wider mb-4">
+              Contact
+            </h4>
             <ul className="space-y-3 text-sm text-muted">
-              <li>Virginia Beach, VA 23462</li>
+              <li>Norfolk, VA</li>
               <li>
-                <a href="tel:9492347170" className="hover:text-accent-pink transition-colors">
+                <a
+                  href="tel:9492347170"
+                  className="hover:text-accent-pink transition-colors"
+                >
                   (949) 234-7170
                 </a>
               </li>
               <li>
-                <a href="mailto:hello@ovwc.net" className="hover:text-accent-pink transition-colors">
+                <a
+                  href="mailto:hello@ovwc.net"
+                  className="hover:text-accent-pink transition-colors"
+                >
                   hello@ovwc.net
                 </a>
               </li>
@@ -96,12 +126,28 @@ export default function Footer() {
         {/* Bottom bar */}
         <div className="mt-16 pt-8 border-t border-card-border flex flex-col md:flex-row items-center justify-between gap-4">
           <p className="text-xs text-muted">
-            &copy; {new Date().getFullYear()} Oceanview Web Co. LLC. All rights reserved.
+            &copy; {new Date().getFullYear()} Oceanview Web Co. LLC. All rights
+            reserved.
           </p>
           <div className="flex gap-6">
-            <Link href="#" className="text-xs text-muted hover:text-accent-pink transition-colors">Privacy Policy</Link>
-            <Link href="#" className="text-xs text-muted hover:text-accent-pink transition-colors">Terms of Service</Link>
-            <Link href="#" className="text-xs text-muted hover:text-accent-pink transition-colors">Sitemap</Link>
+            <Link
+              href="/privacy"
+              className="text-xs text-muted hover:text-accent-pink transition-colors"
+            >
+              Privacy Policy
+            </Link>
+            <Link
+              href="/terms"
+              className="text-xs text-muted hover:text-accent-pink transition-colors"
+            >
+              Terms of Service
+            </Link>
+            <Link
+              href="/sitemap.xml"
+              className="text-xs text-muted hover:text-accent-pink transition-colors"
+            >
+              Sitemap
+            </Link>
           </div>
         </div>
       </div>

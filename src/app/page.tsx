@@ -9,6 +9,7 @@ import {
   Palette,
   PenTool,
   ShoppingCart,
+  Target,
 } from 'lucide-react';
 import SectionReveal from '@/components/SectionReveal';
 import ContactPopup from '@/components/ContactPopup';
@@ -44,6 +45,12 @@ const services = [
     icon: ShoppingCart,
     title: 'E-COMMERCE',
     desc: 'Online stores built to scale. Secure payment processing, intuitive product management, and checkout flows designed to maximize revenue.',
+  },
+  {
+    num: '06',
+    icon: Target,
+    title: 'PAID ADS',
+    desc: 'Google, Meta, and beyond. We build and manage ad campaigns that put your business in front of ready-to-buy customers and deliver measurable ROI.',
   },
 ];
 
@@ -129,7 +136,7 @@ const faqs = [
   },
   {
     q: 'Do you offer SEO services?',
-    a: 'Absolutely. Search engine optimization is one of our core services. We offer both on-page SEO (built into every website we create) and ongoing SEO campaigns that include keyword research, content strategy, technical optimization, local SEO for Virginia Beach and beyond, and monthly performance reporting.',
+    a: 'Absolutely. Search engine optimization is one of our core services. We offer both on-page SEO (built into every website we create) and ongoing SEO campaigns that include keyword research, content strategy, technical optimization, local SEO, and monthly performance reporting.',
   },
   {
     q: 'What industries do you specialize in?',
@@ -234,8 +241,8 @@ export default function Home() {
               <span className="font-serif italic gradient-text">Clients</span>
             </h1>
             <p className="text-lg md:text-xl max-w-xl mb-10 leading-relaxed text-muted">
-              Premium web design and digital marketing for businesses in
-              Virginia Beach and beyond. Your growth is our craft.
+              Premium web design and digital marketing for businesses ready to
+              grow. Your success is our craft.
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
               <button
@@ -361,21 +368,20 @@ export default function Home() {
         <div className="max-w-7xl mx-auto">
           <SectionReveal>
             <h2 className="text-4xl md:text-5xl lg:text-6xl font-medium text-center mb-6">
-              From{' '}
+              Built for{' '}
               <span className="font-serif italic gradient-text">
-                Virginia Beach
+                Businesses
               </span>{' '}
-              to the world.
+              that mean it.
             </h2>
           </SectionReveal>
 
           <SectionReveal delay={0.1}>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-3xl mx-auto mt-8 mb-20">
               <p className="text-muted leading-relaxed">
-                Rooted in the coastal energy of Virginia Beach, Oceanview Web Co
-                was built on the belief that exceptional design drives real
-                business growth. We bring that same clarity and ambition to
-                every project.
+                Oceanview Web Co was built on the belief that exceptional design
+                drives real business growth. We bring clarity, strategy, and
+                ambition to every project.
               </p>
               <p className="text-muted leading-relaxed">
                 From local businesses on Atlantic Avenue to national brands, we
@@ -390,20 +396,19 @@ export default function Home() {
             <div className="space-y-10">
               {[
                 {
-                  value: '8+',
-                  label: 'years',
-                  detail: 'of experience in web design and digital marketing.',
+                  value: '10+',
+                  label: 'Years',
+                  detail: 'of Experience',
                 },
                 {
-                  value: '100+',
-                  label: 'websites',
-                  detail: 'built and launched for clients across the country.',
+                  value: '150+',
+                  label: 'Websites',
+                  detail: 'Built & Launched',
                 },
                 {
                   value: '100%',
-                  label: 'client',
-                  detail:
-                    "satisfaction rate — we don't stop until you're thrilled.",
+                  label: 'Client',
+                  detail: 'Satisfaction Rate',
                 },
               ].map((stat, i) => (
                 <SectionReveal
@@ -416,10 +421,10 @@ export default function Home() {
                       {stat.value}
                     </span>
                     <p className="mt-2 text-muted">
-                      <span className="text-foreground font-medium">
+                      <span className="text-foreground text-xl  font-medium">
                         {stat.label}
                       </span>{' '}
-                      <span className="text-sm text-muted">{stat.detail}</span>
+                      <span className="text-xl text-muted">{stat.detail}</span>
                     </p>
                   </div>
                 </SectionReveal>

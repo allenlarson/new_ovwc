@@ -150,6 +150,7 @@ export default function ContactPopup({ open, onClose }: ContactPopupProps) {
                       <option value="logo-design">Logo Design</option>
                       <option value="copywriting">Copywriting</option>
                       <option value="ecommerce">E-Commerce</option>
+                      <option value="paid-ads">Paid Advertising</option>
                     </select>
                     <textarea
                       placeholder="Tell us about your project *"

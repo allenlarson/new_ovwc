@@ -19,16 +19,17 @@ const dmSerif = DM_Serif_Display({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://ovwc.net'),
   title: {
-    default: 'Oceanview Web Co | Web Design & Digital Marketing | Virginia Beach, VA',
+    default: 'Oceanview Web Co | Web Design & Digital Marketing Agency',
     template: '%s | Oceanview Web Co',
   },
   description:
-    'Oceanview Web Co is a premium web design and digital marketing agency in Virginia Beach, VA. We build websites that turn visitors into clients for real estate, law firms, healthcare, and small businesses.',
+    'Oceanview Web Co is a premium web design and digital marketing agency. We build websites that turn visitors into clients for real estate, law firms, healthcare, and small businesses.',
   keywords: [
-    'web design Virginia Beach',
+    'web design agency',
     'digital marketing agency',
-    'SEO services Virginia Beach',
+    'SEO services',
     'website development',
     'logo design',
     'e-commerce development',
