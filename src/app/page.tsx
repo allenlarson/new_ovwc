@@ -260,11 +260,11 @@ export default function Home() {
             transition={{ delay: 0.6, duration: 0.8 }}
             className="mt-24 flex items-center gap-3"
           >
-            <span className="text-4xl font-medium gradient-text">100+</span>
+            <span className="text-7xl font-extrabold gradient-text">50+</span>
             <span className="text-sm text-muted leading-tight">
-              websites built
+              5 Star Google
               <br />
-              and counting
+              Reviews
             </span>
           </motion.div>
         </div>
