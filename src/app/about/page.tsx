@@ -211,7 +211,7 @@ export default function AboutPage() {
             <SectionReveal delay={0.2} direction="right">
               <div className="relative flex items-center justify-center p-8">
                 <img
-                  src="/ovwc_fin.svg"
+                  src="/ovwc_logo_gradient.svg"
                   alt="Oceanview Web Co"
                   className="w-full max-w-sm mx-auto"
                 />
