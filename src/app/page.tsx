@@ -302,10 +302,30 @@ export default function Home() {
             </h2>
           </SectionReveal>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="relative grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {/* Central gradient burst */}
+            <div
+              className="pointer-events-none absolute inset-0 z-0 flex items-center justify-center"
+              aria-hidden="true"
+            >
+              <div
+                className="w-[480px] h-[480px] rounded-full blur-[120px] opacity-25"
+                style={{
+                  background:
+                    'radial-gradient(circle, #ec4899 0%, #9d174d 30%, #4c1d95 60%, transparent 80%)',
+                }}
+              />
+            </div>
+
             {services.map((service, i) => (
               <SectionReveal key={service.num} delay={i * 0.1}>
-                <div className="group relative bg-card border border-card-border rounded-2xl p-8 h-full hover:border-accent-purple/30 transition-all duration-500 overflow-hidden">
+                <div className="group relative z-10 bg-card border border-card-border rounded-2xl p-8 h-full transition-all duration-500 overflow-hidden
+                  hover:border-accent-pink/60
+                  hover:shadow-[0_0_40px_-8px_rgba(236,72,153,0.45)]">
+                  {/* Hover gradient fill */}
+                  <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none rounded-2xl"
+                    style={{ background: 'linear-gradient(135deg, rgba(157,23,77,0.18) 0%, rgba(76,29,149,0.18) 100%)' }}
+                  />
                   {/* Abstract wave top */}
                   <div className="absolute top-0 left-0 right-0 h-32 overflow-hidden opacity-30">
                     <svg
@@ -324,22 +344,22 @@ export default function Home() {
                       ))}
                     </svg>
                   </div>
-                  <span className="text-sm text-muted">{service.num}</span>
-                  <div className="my-4 group-hover:scale-110 transition-transform duration-500 origin-left">
+                  <span className="relative text-sm text-muted">{service.num}</span>
+                  <div className="relative my-4 group-hover:scale-110 transition-transform duration-500 origin-left">
                     <service.icon
                       className="w-12 h-12 stroke-[1.5]"
                       style={{ stroke: 'url(#icon-gradient)' }}
                     />
                   </div>
-                  <h3 className="text-lg font-medium tracking-wide mb-3">
+                  <h3 className="relative text-lg font-medium tracking-wide mb-3">
                     {service.title}
                   </h3>
-                  <p className="text-sm text-muted leading-relaxed mb-6">
+                  <p className="relative text-sm text-muted leading-relaxed mb-6">
                     {service.desc}
                   </p>
                   <Link
                     href="/services"
-                    className="inline-flex items-center gap-2 text-sm font-medium gradient-text group-hover:gap-3 transition-all"
+                    className="relative inline-flex items-center gap-2 text-sm font-medium gradient-text group-hover:gap-3 transition-all"
                   >
                     Learn More
                     <svg
@@ -379,19 +399,19 @@ export default function Home() {
           <SectionReveal delay={0.1}>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-3xl mx-auto mt-8 mb-20">
               <p className="text-muted leading-relaxed">
-                Oceanview Web Co was built on the belief that exceptional design
-                drives real business growth. We bring clarity, strategy, and
-                ambition to every project.
+                We started with a simple idea: great design should do more than
+                look good — it should work. Every site we build is engineered to
+                attract, engage, and convert.
               </p>
               <p className="text-muted leading-relaxed">
-                From local businesses on Atlantic Avenue to national brands, we
-                deliver digital experiences that perform — combining strategy,
-                design, and technology into results you can measure.
+                From solo operators to multi-location brands, we deliver digital
+                experiences that perform — pairing sharp design with strategy
+                that moves the needle.
               </p>
             </div>
           </SectionReveal>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+          <div className="grid grid-cols-1 md:grid-cols-[3fr_5fr] gap-12 items-center">
             {/* Stats */}
             <div className="space-y-10">
               {[
@@ -431,50 +451,62 @@ export default function Home() {
               ))}
             </div>
 
-            {/* Dotted map visual */}
+            {/* Visual */}
             <SectionReveal delay={0.2} direction="right">
-              <div className="relative flex items-center justify-center">
-                <svg
-                  className="w-full max-w-lg opacity-20"
-                  viewBox="0 0 500 300"
-                >
-                  {Array.from({ length: 50 }).map((_, row) =>
-                    Array.from({ length: 80 }).map((_, col) => {
-                      const x = col * 6.25;
-                      const y = row * 6;
-                      const inShape =
-                        (x > 50 &&
-                          x < 180 &&
-                          y > 30 &&
-                          y < 150 &&
-                          Math.sin(x * 0.1) * 30 + 90 > y) ||
-                        (x > 220 && x < 310 && y > 30 && y < 120) ||
-                        (x > 240 && x < 310 && y > 120 && y < 220) ||
-                        (x > 300 && x < 450 && y > 40 && y < 160);
-                      if (!inShape) return null;
-                      return (
-                        <circle
-                          key={`${row}-${col}`}
-                          cx={x}
-                          cy={y}
-                          r="1"
-                          fill="currentColor"
-                          opacity={0.35}
-                        />
-                      );
-                    }),
-                  )}
-                  <circle cx="120" cy="85" r="4" fill="#4c1d95" opacity="0.8" />
-                  <circle
-                    cx="120"
-                    cy="85"
-                    r="8"
-                    fill="none"
-                    stroke="#4c1d95"
-                    strokeWidth="0.5"
-                    opacity="0.5"
-                  />
-                </svg>
+              <div className="relative flex items-center justify-center py-8 px-6">
+
+                {/* Glow */}
+                <div className="absolute w-96 h-96 rounded-full opacity-20 blur-3xl"
+                  style={{ background: 'radial-gradient(circle, #9d174d, #4c1d95)' }} />
+
+                {/* Main browser card */}
+                <div className="relative w-full glass rounded-2xl overflow-hidden border border-card-border shadow-2xl">
+                  {/* Browser chrome */}
+                  <div className="flex items-center gap-2 px-5 py-4 border-b border-card-border bg-foreground/5">
+                    <div className="w-3 h-3 rounded-full bg-red-400/60" />
+                    <div className="w-3 h-3 rounded-full bg-yellow-400/60" />
+                    <div className="w-3 h-3 rounded-full bg-green-400/60" />
+                    <div className="ml-3 flex-1 rounded-full bg-foreground/10 h-5 px-3 flex items-center">
+                      <div className="w-32 h-2 rounded-full bg-foreground/20" />
+                    </div>
+                  </div>
+                  {/* Screen content */}
+                  <div className="p-7 space-y-4">
+                    <div className="h-36 rounded-xl bg-gradient-to-br from-accent-pink/20 to-accent-purple/20 border border-card-border flex items-center justify-center">
+                      <div className="text-3xl font-serif italic gradient-text">Your Brand Here</div>
+                    </div>
+                    <div className="grid grid-cols-3 gap-3">
+                      {['Home', 'About', 'Services'].map(l => (
+                        <div key={l} className="h-9 rounded-lg bg-foreground/5 border border-card-border flex items-center justify-center">
+                          <span className="text-sm text-muted">{l}</span>
+                        </div>
+                      ))}
+                    </div>
+                    <div className="space-y-2.5">
+                      {[100, 75, 88].map((w, i) => (
+                        <div key={i} className="h-2.5 rounded-full bg-foreground/5" style={{ width: `${w}%` }} />
+                      ))}
+                    </div>
+                    <div className="h-10 rounded-xl w-1/2 mx-auto"
+                      style={{ background: 'linear-gradient(to right, #9d174d, #4c1d95)' }} />
+                  </div>
+                </div>
+
+                {/* Floating badge — top right */}
+                <div className="absolute -top-2 right-4 glass rounded-xl px-4 py-2.5 border border-card-border shadow-lg flex items-center gap-2">
+                  <div className="w-2.5 h-2.5 rounded-full bg-green-400 animate-pulse" />
+                  <span className="text-sm font-medium">Live & Converting</span>
+                </div>
+
+                {/* Floating badge — bottom left */}
+                <div className="absolute -bottom-2 left-4 glass rounded-xl px-4 py-2.5 border border-card-border shadow-lg flex items-center gap-2">
+                  <span className="text-xl">⚡</span>
+                  <div>
+                    <p className="text-sm font-medium leading-none">4–6 Weeks</p>
+                    <p className="text-sm text-muted leading-none mt-1">Avg. Launch Time</p>
+                  </div>
+                </div>
+
               </div>
             </SectionReveal>
           </div>
@@ -484,7 +516,7 @@ export default function Home() {
       {/* ════════════════════════════════ WHY CHOOSE US ════════════════════════════════ */}
       <section className="py-32 px-6 relative">
         <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             <div>
               <SectionReveal>
                 <h2 className="text-5xl md:text-7xl font-medium leading-[0.95] mb-16">
@@ -521,56 +553,89 @@ export default function Home() {
               </div>
             </div>
 
-            {/* Abstract 3D visual */}
+            {/* Process visual */}
             <SectionReveal delay={0.3} direction="right">
-              <div className="relative flex items-center justify-center lg:sticky lg:top-32">
-                <svg className="w-full max-w-md" viewBox="0 0 400 400">
-                  <defs>
-                    <linearGradient
-                      id="whyGrad"
-                      x1="0%"
-                      y1="0%"
-                      x2="100%"
-                      y2="100%"
-                    >
-                      <stop offset="0%" stopColor="#4c1d95" stopOpacity="0.6" />
-                      <stop
-                        offset="50%"
-                        stopColor="#9d174d"
-                        stopOpacity="0.4"
-                      />
-                      <stop
-                        offset="100%"
-                        stopColor="#4c1d95"
-                        stopOpacity="0.2"
-                      />
-                    </linearGradient>
-                  </defs>
-                  {Array.from({ length: 40 }).map((_, i) => {
-                    const angle = (i / 40) * Math.PI * 2;
-                    const r = 120 + Math.sin(angle * 3) * 30;
-                    const cx =
-                      Math.round((200 + Math.cos(angle) * r * 0.5) * 100) / 100;
-                    const cy =
-                      Math.round((200 + Math.sin(angle) * r * 0.3) * 100) / 100;
-                    const op =
-                      Math.round((0.15 + (i / 40) * 0.3) * 1000) / 1000;
-                    return (
-                      <ellipse
-                        key={i}
-                        cx={cx}
-                        cy={cy}
-                        rx={80 - i * 1.2}
-                        ry={40 - i * 0.6}
-                        fill="none"
-                        stroke="url(#whyGrad)"
-                        strokeWidth="0.8"
-                        opacity={op}
-                        transform={`rotate(${i * 4.5} ${cx} ${cy})`}
-                      />
-                    );
-                  })}
-                </svg>
+              <div className="relative flex flex-col items-center justify-center gap-0 py-4">
+
+                {/* Glow */}
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 rounded-full blur-3xl opacity-20 pointer-events-none"
+                  style={{ background: 'radial-gradient(circle, #9d174d, #4c1d95)' }} />
+
+                {/* Step cards */}
+                {[
+                  {
+                    step: '01',
+                    title: 'Discovery & Strategy',
+                    desc: 'We learn your business, audience, and goals before a single pixel is placed.',
+                    icon: (
+                      <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M9.75 3.104v5.714a2.25 2.25 0 01-.659 1.591L5 14.5M9.75 3.104c-.251.023-.501.05-.75.082m.75-.082a24.301 24.301 0 014.5 0m0 0v5.714c0 .597.237 1.17.659 1.591L19.8 15.3M14.25 3.104c.251.023.501.05.75.082M19.8 15.3l-1.57.393A9.065 9.065 0 0112 15a9.065 9.065 0 00-6.23-.693L5 14.5m14.8.8l1.402 1.402c1.232 1.232.65 3.318-1.067 3.611A48.309 48.309 0 0112 21a48.25 48.25 0 01-8.135-.687c-1.718-.293-2.3-2.379-1.067-3.61L5 14.5" />
+                      </svg>
+                    ),
+                  },
+                  {
+                    step: '02',
+                    title: 'Design & Build',
+                    desc: 'Pixel-perfect design paired with clean, performant code built to convert.',
+                    icon: (
+                      <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M9.53 16.122a3 3 0 00-5.78 1.128 2.25 2.25 0 01-2.4 2.245 4.5 4.5 0 008.4-2.245c0-.399-.078-.78-.22-1.128zm0 0a15.998 15.998 0 003.388-1.62m-5.043-.025a15.994 15.994 0 011.622-3.395m3.42 3.42a15.995 15.995 0 004.764-4.648l3.876-5.814a1.151 1.151 0 00-1.597-1.597L14.146 6.32a15.996 15.996 0 00-4.649 4.763m3.42 3.42a6.776 6.776 0 00-3.42-3.42" />
+                      </svg>
+                    ),
+                  },
+                  {
+                    step: '03',
+                    title: 'Launch & Grow',
+                    desc: 'We don\'t disappear after launch — we optimize, track, and help you scale.',
+                    icon: (
+                      <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 18L9 11.25l4.306 4.307a11.95 11.95 0 015.814-5.519l2.74-1.22m0 0l-5.94-2.28m5.94 2.28l-2.28 5.941" />
+                      </svg>
+                    ),
+                  },
+                ].map((item, i) => (
+                  <div key={item.step} className="w-full max-w-sm">
+                    <div className="glass border border-card-border rounded-2xl p-5 flex items-start gap-4 hover:border-accent-purple/40 transition-all duration-300 relative overflow-hidden group">
+                      <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
+                        style={{ background: 'radial-gradient(ellipse at top left, rgba(157,23,77,0.08), transparent 70%)' }} />
+                      <div className="shrink-0 flex flex-col items-center gap-1">
+                        <div className="w-10 h-10 rounded-xl flex items-center justify-center"
+                          style={{ background: 'linear-gradient(135deg, rgba(157,23,77,0.2), rgba(76,29,149,0.2))', border: '1px solid rgba(157,23,77,0.3)' }}>
+                          <div style={{ color: '#a78bfa' }}>{item.icon}</div>
+                        </div>
+                        <span className="text-xs text-accent-purple font-medium">{item.step}</span>
+                      </div>
+                      <div>
+                        <h4 className="font-medium mb-1">{item.title}</h4>
+                        <p className="text-sm text-muted leading-relaxed">{item.desc}</p>
+                      </div>
+                    </div>
+                    {/* Connector line — flush between cards */}
+                    {i < 2 && (
+                      <div className="flex justify-start pl-[2.3rem]">
+                        <div className="w-px h-6"
+                          style={{ background: 'linear-gradient(to bottom, #9d174d, #4c1d95)' }} />
+                      </div>
+                    )}
+                  </div>
+                ))}
+
+                {/* Bottom result badge */}
+                <div className="glass border border-card-border rounded-2xl px-6 py-4 w-full max-w-sm flex items-center justify-between"
+                  style={{ borderColor: 'rgba(157,23,77,0.3)', background: 'linear-gradient(135deg, rgba(157,23,77,0.08), rgba(76,29,149,0.08))' }}>
+                  <div>
+                    <p className="text-xs text-muted">Average result</p>
+                    <p className="font-medium gradient-text">+200% More Leads</p>
+                  </div>
+                  <div className="flex">
+                    {[...Array(5)].map((_, i) => (
+                      <svg key={i} className="w-4 h-4 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                      </svg>
+                    ))}
+                  </div>
+                </div>
+
               </div>
             </SectionReveal>
           </div>

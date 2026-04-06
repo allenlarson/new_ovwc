@@ -59,11 +59,11 @@ const industryColors: Record<
     shadow: 'rgba(244,63,94,0.25)',
   },
   Law: {
-    bg: 'rgba(251,191,36,0.15)',
-    text: '#fcd34d',
-    dot: '#f59e0b',
-    border: 'rgba(251,191,36,0.3)',
-    shadow: 'rgba(251,191,36,0.25)',
+    bg: 'rgba(234,88,12,0.15)',
+    text: '#fb923c',
+    dot: '#ea580c',
+    border: 'rgba(234,88,12,0.3)',
+    shadow: 'rgba(234,88,12,0.25)',
   },
 };
 
