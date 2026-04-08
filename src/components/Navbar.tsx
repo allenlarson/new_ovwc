@@ -7,14 +7,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import Logo from './Logo';
 import { useTheme } from '@/context/ThemeContext';
 import ContactPopup from './ContactPopup';
-
-const navLinks = [
-  { href: '/', label: 'Home' },
-  { href: '/about', label: 'About' },
-  { href: '/services', label: 'Services' },
-  { href: '/work', label: 'Work' },
-  { href: '/contact', label: 'Contact' },
-];
+import { navLinks } from '@/data/navigation';
 
 function ThemeIcon({ theme }: { theme: string }) {
   return theme === 'dark' ? (

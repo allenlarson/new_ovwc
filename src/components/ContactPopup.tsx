@@ -107,60 +107,84 @@ export default function ContactPopup({ open, onClose }: ContactPopupProps) {
 
                   <form onSubmit={handleSubmit} className="space-y-4">
                     <div className="grid grid-cols-2 gap-4">
-                      <input
-                        type="text"
-                        placeholder="Name *"
-                        required
-                        value={formData.name}
-                        onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                        className="w-full px-4 py-3 rounded-lg bg-foreground/5 border border-card-border text-foreground placeholder:text-muted/60 text-sm focus:outline-none focus:border-accent-purple transition-colors"
-                      />
-                      <input
-                        type="email"
-                        placeholder="Email *"
-                        required
-                        value={formData.email}
-                        onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                        className="w-full px-4 py-3 rounded-lg bg-foreground/5 border border-card-border text-foreground placeholder:text-muted/60 text-sm focus:outline-none focus:border-accent-purple transition-colors"
-                      />
+                      <div>
+                        <label htmlFor="popup-name" className="sr-only">Name</label>
+                        <input
+                          id="popup-name"
+                          type="text"
+                          placeholder="Name *"
+                          required
+                          value={formData.name}
+                          onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                          className="w-full px-4 py-3 rounded-lg bg-foreground/5 border border-card-border text-foreground placeholder:text-muted/60 text-sm focus:outline-none focus:border-accent-purple transition-colors"
+                        />
+                      </div>
+                      <div>
+                        <label htmlFor="popup-email" className="sr-only">Email</label>
+                        <input
+                          id="popup-email"
+                          type="email"
+                          placeholder="Email *"
+                          required
+                          value={formData.email}
+                          onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                          className="w-full px-4 py-3 rounded-lg bg-foreground/5 border border-card-border text-foreground placeholder:text-muted/60 text-sm focus:outline-none focus:border-accent-purple transition-colors"
+                        />
+                      </div>
                     </div>
                     <div className="grid grid-cols-2 gap-4">
-                      <input
-                        type="tel"
-                        placeholder="Phone"
-                        value={formData.phone}
-                        onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                        className="w-full px-4 py-3 rounded-lg bg-foreground/5 border border-card-border text-foreground placeholder:text-muted/60 text-sm focus:outline-none focus:border-accent-purple transition-colors"
-                      />
-                      <input
-                        type="text"
-                        placeholder="Company"
-                        value={formData.company}
-                        onChange={(e) => setFormData({ ...formData, company: e.target.value })}
-                        className="w-full px-4 py-3 rounded-lg bg-foreground/5 border border-card-border text-foreground placeholder:text-muted/60 text-sm focus:outline-none focus:border-accent-purple transition-colors"
+                      <div>
+                        <label htmlFor="popup-phone" className="sr-only">Phone</label>
+                        <input
+                          id="popup-phone"
+                          type="tel"
+                          placeholder="Phone"
+                          value={formData.phone}
+                          onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                          className="w-full px-4 py-3 rounded-lg bg-foreground/5 border border-card-border text-foreground placeholder:text-muted/60 text-sm focus:outline-none focus:border-accent-purple transition-colors"
+                        />
+                      </div>
+                      <div>
+                        <label htmlFor="popup-company" className="sr-only">Company</label>
+                        <input
+                          id="popup-company"
+                          type="text"
+                          placeholder="Company"
+                          value={formData.company}
+                          onChange={(e) => setFormData({ ...formData, company: e.target.value })}
+                          className="w-full px-4 py-3 rounded-lg bg-foreground/5 border border-card-border text-foreground placeholder:text-muted/60 text-sm focus:outline-none focus:border-accent-purple transition-colors"
+                        />
+                      </div>
+                    </div>
+                    <div>
+                      <label htmlFor="popup-service" className="sr-only">Service</label>
+                      <select
+                        id="popup-service"
+                        value={formData.service}
+                        onChange={(e) => setFormData({ ...formData, service: e.target.value })}
+                        className="w-full px-4 py-3 rounded-lg bg-foreground/5 border border-card-border text-foreground text-sm focus:outline-none focus:border-accent-purple transition-colors"
+                      >
+                        <option value="" className="bg-background text-foreground">Select a Service</option>
+                        <option value="web-design" className="bg-background text-foreground">Web Design</option>
+                        <option value="seo" className="bg-background text-foreground">Search Engine Optimization</option>
+                        <option value="logo-design" className="bg-background text-foreground">Logo Design</option>
+                        <option value="copywriting" className="bg-background text-foreground">Copywriting</option>
+                        <option value="ecommerce" className="bg-background text-foreground">E-Commerce</option>
+                        <option value="paid-ads" className="bg-background text-foreground">Paid Advertising</option>
+                      </select>
+                    </div>
+                    <div>
+                      <label htmlFor="popup-message" className="sr-only">Message</label>
+                      <textarea
+                        id="popup-message"
+                        placeholder="Tell us about your project *"
+                        required
+                        rows={4}
+                        value={formData.message}
+                        onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                        className="w-full px-4 py-3 rounded-lg bg-foreground/5 border border-card-border text-foreground placeholder:text-muted/60 text-sm focus:outline-none focus:border-accent-purple transition-colors resize-none"
                       />
                     </div>
-                    <select
-                      value={formData.service}
-                      onChange={(e) => setFormData({ ...formData, service: e.target.value })}
-                      className="w-full px-4 py-3 rounded-lg bg-foreground/5 border border-card-border text-foreground text-sm focus:outline-none focus:border-accent-purple transition-colors"
-                    >
-                      <option value="" className="bg-background text-foreground">Select a Service</option>
-                      <option value="web-design" className="bg-background text-foreground">Web Design</option>
-                      <option value="seo" className="bg-background text-foreground">Search Engine Optimization</option>
-                      <option value="logo-design" className="bg-background text-foreground">Logo Design</option>
-                      <option value="copywriting" className="bg-background text-foreground">Copywriting</option>
-                      <option value="ecommerce" className="bg-background text-foreground">E-Commerce</option>
-                      <option value="paid-ads" className="bg-background text-foreground">Paid Advertising</option>
-                    </select>
-                    <textarea
-                      placeholder="Tell us about your project *"
-                      required
-                      rows={4}
-                      value={formData.message}
-                      onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                      className="w-full px-4 py-3 rounded-lg bg-foreground/5 border border-card-border text-foreground placeholder:text-muted/60 text-sm focus:outline-none focus:border-accent-purple transition-colors resize-none"
-                    />
                     {error && (
                       <p className="text-red-400 text-sm text-center">{error}</p>
                     )}
