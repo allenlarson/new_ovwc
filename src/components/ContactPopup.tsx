@@ -68,8 +68,9 @@ export default function ContactPopup({ open, onClose }: ContactPopupProps) {
             exit={{ opacity: 0, scale: 0.95, y: 20 }}
             transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
             className="fixed inset-0 z-[80] flex items-center justify-center p-4"
+            onClick={onClose}
           >
-            <div className="glass rounded-2xl p-8 w-full max-w-lg relative overflow-hidden">
+            <div className="glass rounded-2xl p-8 w-full max-w-lg relative overflow-hidden" onClick={(e) => e.stopPropagation()}>
               {/* Gradient accent line */}
               <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-accent-pink to-transparent" />
 
@@ -144,13 +145,13 @@ export default function ContactPopup({ open, onClose }: ContactPopupProps) {
                       onChange={(e) => setFormData({ ...formData, service: e.target.value })}
                       className="w-full px-4 py-3 rounded-lg bg-foreground/5 border border-card-border text-foreground text-sm focus:outline-none focus:border-accent-purple transition-colors"
                     >
-                      <option value="">Select a Service</option>
-                      <option value="web-design">Web Design</option>
-                      <option value="seo">Search Engine Optimization</option>
-                      <option value="logo-design">Logo Design</option>
-                      <option value="copywriting">Copywriting</option>
-                      <option value="ecommerce">E-Commerce</option>
-                      <option value="paid-ads">Paid Advertising</option>
+                      <option value="" className="bg-background text-foreground">Select a Service</option>
+                      <option value="web-design" className="bg-background text-foreground">Web Design</option>
+                      <option value="seo" className="bg-background text-foreground">Search Engine Optimization</option>
+                      <option value="logo-design" className="bg-background text-foreground">Logo Design</option>
+                      <option value="copywriting" className="bg-background text-foreground">Copywriting</option>
+                      <option value="ecommerce" className="bg-background text-foreground">E-Commerce</option>
+                      <option value="paid-ads" className="bg-background text-foreground">Paid Advertising</option>
                     </select>
                     <textarea
                       placeholder="Tell us about your project *"

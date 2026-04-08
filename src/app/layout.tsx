@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { DM_Sans, DM_Serif_Display } from 'next/font/google';
+import Script from 'next/script';
 import './globals.css';
 import { ThemeProvider } from '@/context/ThemeContext';
 import Navbar from '@/components/Navbar';
@@ -94,6 +95,18 @@ export default function RootLayout({
           <main className="flex-1">{children}</main>
           <Footer />
         </ThemeProvider>
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-RGF5CXBQ37"
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-RGF5CXBQ37');
+          `}
+        </Script>
       </body>
     </html>
   );
