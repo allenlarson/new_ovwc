@@ -149,8 +149,17 @@ export default function AboutContent() {
     <>
       <HeroSection
         tag="About Us"
-        heading={<>The Team Behind<br />Your <span className="font-serif italic gradient-text">Digital Success</span></>}
-        subtext="We're Oceanview Web Co — a premium web design and digital marketing agency. We build digital experiences that grow businesses."
+        heading={
+          <>
+            The Team Behind
+            <br />
+            Your{' '}
+            <span className="font-serif italic gradient-text">
+              Digital Success
+            </span>
+          </>
+        }
+        subtext="We're Oceanview Web Co. — a premium web design and digital marketing agency. We build digital experiences that grow businesses."
       />
 
       {/* Our Story */}
@@ -196,7 +205,7 @@ export default function AboutContent() {
               <div className="relative flex items-center justify-center p-8">
                 <img
                   src="/ovwc_logo_gradient.svg"
-                  alt="Oceanview Web Co"
+                  alt="Oceanview Web Co. Logo"
                   className="w-full max-w-sm mx-auto"
                 />
               </div>
@@ -274,7 +283,13 @@ export default function AboutContent() {
       </section>
 
       <CTASection
-        heading={<>Let&apos;s Build Something<br /><span className="font-serif italic gradient-text">Remarkable</span></>}
+        heading={
+          <>
+            Let&apos;s Build Something
+            <br />
+            <span className="font-serif italic gradient-text">Remarkable</span>
+          </>
+        }
         subtext="Ready to work with a team that treats your business like their own? Let's talk."
         onCtaClick={() => setPopupOpen(true)}
       />

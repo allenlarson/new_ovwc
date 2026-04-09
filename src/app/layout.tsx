@@ -3,8 +3,7 @@ import { DM_Sans, DM_Serif_Display } from 'next/font/google';
 import Script from 'next/script';
 import './globals.css';
 import { ThemeProvider } from '@/context/ThemeContext';
-import Navbar from '@/components/Navbar';
-import Footer from '@/components/Footer';
+import SiteChrome from '@/components/SiteChrome';
 
 const dmSans = DM_Sans({
   subsets: ['latin'],
@@ -127,9 +126,7 @@ export default function RootLayout({
       </head>
       <body className="min-h-screen font-sans antialiased bg-background text-foreground">
         <ThemeProvider>
-          <Navbar />
-          <main className="flex-1">{children}</main>
-          <Footer />
+          <SiteChrome>{children}</SiteChrome>
         </ThemeProvider>
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-RGF5CXBQ37"

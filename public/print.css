@@ -1,0 +1,51 @@
+/* Add these print styles to your globals.css */
+
+@media print {
+  /* Hide everything except the proposal document */
+  .no-print,
+  nav,
+  header,
+  footer {
+    display: none !important;
+  }
+
+  body {
+    background: white !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  /* Remove sticky positioning for print */
+  [style*="position: sticky"],
+  [style*="position:sticky"] {
+    position: relative !important;
+  }
+
+  /* Remove shadows */
+  [style*="box-shadow"] {
+    box-shadow: none !important;
+  }
+
+  /* Prevent page breaks inside key sections */
+  table,
+  .timeline-box,
+  .sig-section {
+    page-break-inside: avoid;
+  }
+
+  h2 {
+    page-break-after: avoid;
+  }
+
+  /* Full width on print */
+  .proposal-doc {
+    max-width: 100% !important;
+    box-shadow: none !important;
+  }
+
+  /* Page margins */
+  @page {
+    margin: 0.75in;
+    size: letter;
+  }
+}

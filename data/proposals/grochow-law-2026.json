@@ -1,0 +1,44 @@
+{
+  "id": "sample001",
+  "slug": "grochow-law-2026",
+  "status": "draft",
+  "clientName": "Grochow Law",
+  "clientEmail": "contact@grochowlaw.com",
+  "clientCompany": "Grochow Law & Associates",
+  "heroImageUrl": "",
+  "heroImageBase64": "",
+  "overview": "We'll design and manage a results-driven social media presence for Grochow Law — building trust with employees navigating workplace challenges, growing a consistent audience, and positioning the firm as the go-to employment law advocate in the region.",
+  "objectives": [
+    "Increase inbound inquiries through forms, calls, and booked consultations",
+    "Improve clarity around the firm's practice areas",
+    "Strengthen credibility with educational content and case highlights",
+    "Build a consistent brand voice across Instagram and LinkedIn"
+  ],
+  "deliverables": [
+    "12 social media posts per month (Instagram + LinkedIn)",
+    "Monthly strategy call and content calendar",
+    "Story templates and branded graphics",
+    "Hashtag & engagement strategy",
+    "Monthly analytics report"
+  ],
+  "services": [
+    { "name": "Social Media Management", "price": "$1,200/mo", "description": "Instagram & LinkedIn" },
+    { "name": "Content Creation & Design", "price": "$800/mo", "description": "Graphics, copy, captions" },
+    { "name": "Strategy & Reporting", "price": "Included", "description": "" }
+  ],
+  "timelineEstimate": "Ongoing / 30-day cycles",
+  "milestones": [
+    { "label": "Step 1", "task": "Deposit and signed contract" },
+    { "label": "Step 2", "task": "Strategy session & content calendar" },
+    { "label": "Step 3", "task": "Initial content delivered for review" },
+    { "label": "Step 4", "task": "Publishing begins, monthly reporting" }
+  ],
+  "nextSteps": [
+    "Review this proposal",
+    "Approve and sign below",
+    "Submit deposit to schedule kickoff call"
+  ],
+  "validUntil": "2026-05-01",
+  "createdAt": "2026-04-09T00:00:00.000Z",
+  "updatedAt": "2026-04-09T00:00:00.000Z"
+}
