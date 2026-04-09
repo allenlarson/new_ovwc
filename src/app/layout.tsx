@@ -97,6 +97,33 @@ export default function RootLayout({
             `,
           }}
         />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              '@context': 'https://schema.org',
+              '@type': 'ProfessionalService',
+              name: 'Oceanview Web Co.',
+              url: 'https://ovwc.net',
+              logo: 'https://ovwc.net/og.png',
+              image: 'https://ovwc.net/og.png',
+              description:
+                'Oceanview Web Co is a premium web design and digital marketing agency. We build websites that turn visitors into clients for real estate, law firms, healthcare, and small businesses.',
+              email: 'hello@ovwc.net',
+              telephone: '+19492347170',
+              areaServed: 'United States',
+              priceRange: '$$$',
+              serviceType: [
+                'Web Design',
+                'SEO',
+                'Logo Design',
+                'Copywriting',
+                'E-Commerce Development',
+                'Paid Advertising',
+              ],
+            }),
+          }}
+        />
       </head>
       <body className="min-h-screen font-sans antialiased bg-background text-foreground">
         <ThemeProvider>

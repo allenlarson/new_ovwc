@@ -615,6 +615,23 @@ export default function HomeContent() {
       </section>
 
       {/* ════════════════════════════════ FAQ ════════════════════════════════ */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'FAQPage',
+            mainEntity: faqs.map((faq) => ({
+              '@type': 'Question',
+              name: faq.q,
+              acceptedAnswer: {
+                '@type': 'Answer',
+                text: faq.a,
+              },
+            })),
+          }),
+        }}
+      />
       <section className="py-32 px-6 relative" id="faq">
         <div className="max-w-3xl mx-auto">
           <SectionReveal>
