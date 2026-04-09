@@ -1,61 +1,42 @@
-import fs from 'fs'
-import path from 'path'
-import { Proposal } from '@/types/proposal'
+import clientPromise from './mongodb';
+import { Proposal } from '@/types/proposal';
 
-const DATA_DIR = path.join(process.cwd(), 'data', 'proposals')
+const DB = 'ovwc';
+const COL = 'proposals';
 
-function ensureDir() {
-  if (!fs.existsSync(DATA_DIR)) {
-    fs.mkdirSync(DATA_DIR, { recursive: true })
-  }
+async function col() {
+  const client = await clientPromise;
+  return client.db(DB).collection<Proposal>(COL);
 }
 
-export function getAllProposals(): Proposal[] {
-  ensureDir()
-  const files = fs.readdirSync(DATA_DIR).filter(f => f.endsWith('.json'))
-  return files
-    .map(f => {
-      try {
-        return JSON.parse(fs.readFileSync(path.join(DATA_DIR, f), 'utf-8')) as Proposal
-      } catch {
-        return null
-      }
-    })
-    .filter(Boolean) as Proposal[]
+export async function getAllProposals(): Promise<Proposal[]> {
+  const c = await col();
+  return c.find({}, { projection: { _id: 0 } }).sort({ updatedAt: -1 }).toArray();
 }
 
-export function getProposalBySlug(slug: string): Proposal | null {
-  ensureDir()
-  const filePath = path.join(DATA_DIR, `${slug}.json`)
-  if (!fs.existsSync(filePath)) return null
-  try {
-    return JSON.parse(fs.readFileSync(filePath, 'utf-8')) as Proposal
-  } catch {
-    return null
-  }
+export async function getProposalBySlug(slug: string): Promise<Proposal | null> {
+  const c = await col();
+  return c.findOne({ slug }, { projection: { _id: 0 } });
 }
 
-export function saveProposal(proposal: Proposal): void {
-  ensureDir()
-  const filePath = path.join(DATA_DIR, `${proposal.slug}.json`)
-  fs.writeFileSync(filePath, JSON.stringify(proposal, null, 2), 'utf-8')
+export async function saveProposal(proposal: Proposal): Promise<void> {
+  const c = await col();
+  await c.replaceOne({ slug: proposal.slug }, proposal, { upsert: true });
 }
 
-export function deleteProposal(slug: string): boolean {
-  ensureDir()
-  const filePath = path.join(DATA_DIR, `${slug}.json`)
-  if (!fs.existsSync(filePath)) return false
-  fs.unlinkSync(filePath)
-  return true
+export async function deleteProposal(slug: string): Promise<boolean> {
+  const c = await col();
+  const result = await c.deleteOne({ slug });
+  return result.deletedCount > 0;
 }
 
 export function generateId(): string {
-  return Date.now().toString(36) + Math.random().toString(36).slice(2, 7)
+  return Date.now().toString(36) + Math.random().toString(36).slice(2, 7);
 }
 
 export function slugify(name: string): string {
   return name
     .toLowerCase()
     .replace(/[^a-z0-9]+/g, '-')
-    .replace(/^-|-$/g, '')
+    .replace(/^-|-$/g, '');
 }

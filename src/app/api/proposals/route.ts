@@ -1,23 +1,21 @@
-import { NextRequest, NextResponse } from 'next/server'
-import { getAllProposals, saveProposal, generateId, slugify } from '@/lib/proposals'
-import { Proposal } from '@/types/proposal'
+import { NextRequest, NextResponse } from 'next/server';
+import { getAllProposals, saveProposal, generateId, slugify } from '@/lib/proposals';
+import { Proposal } from '@/types/proposal';
 
 export async function GET() {
   try {
-    const proposals = getAllProposals()
-    proposals.sort((a, b) => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime())
-    return NextResponse.json(proposals)
-  } catch (err) {
-    return NextResponse.json({ error: 'Failed to load proposals' }, { status: 500 })
+    const proposals = await getAllProposals();
+    return NextResponse.json(proposals);
+  } catch {
+    return NextResponse.json({ error: 'Failed to load proposals' }, { status: 500 });
   }
 }
 
 export async function POST(req: NextRequest) {
   try {
-    const body = await req.json()
-    const now = new Date().toISOString()
-
-    const slug = body.slug || slugify(body.clientName || 'untitled') + '-' + new Date().getFullYear()
+    const body = await req.json();
+    const now = new Date().toISOString();
+    const slug = body.slug || slugify(body.clientName || 'untitled') + '-' + new Date().getFullYear();
 
     const proposal: Proposal = {
       id: body.id || generateId(),
@@ -41,11 +39,11 @@ export async function POST(req: NextRequest) {
       sentAt: body.sentAt,
       viewedAt: body.viewedAt,
       signature: body.signature,
-    }
+    };
 
-    saveProposal(proposal)
-    return NextResponse.json(proposal)
-  } catch (err) {
-    return NextResponse.json({ error: 'Failed to save proposal' }, { status: 500 })
+    await saveProposal(proposal);
+    return NextResponse.json(proposal);
+  } catch {
+    return NextResponse.json({ error: 'Failed to save proposal' }, { status: 500 });
   }
 }
