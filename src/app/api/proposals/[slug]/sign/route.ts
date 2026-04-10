@@ -12,7 +12,12 @@ export async function POST(req: NextRequest, { params }: { params: Promise<{ slu
 
   proposal.status = 'signed';
   proposal.updatedAt = now;
-  proposal.signature = { name: body.name, title: body.title || '', signedAt: now };
+  proposal.signature = {
+    name: body.name,
+    title: body.title || '',
+    signedAt: now,
+    imageBase64: body.imageBase64 || '',
+  };
 
   await saveProposal(proposal);
   return NextResponse.json(proposal);

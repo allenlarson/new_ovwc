@@ -11,11 +11,17 @@ export interface TimelineMilestone {
   task: string
 }
 
+export interface ProposalSection {
+  title: string
+  content: string // newline-separated lines; multi-line renders as bullet list, single block as paragraph
+}
+
 export interface Signature {
   name: string
   title: string
   signedAt: string
   ipAddress?: string
+  imageBase64?: string
 }
 
 export interface Proposal {
@@ -34,8 +40,7 @@ export interface Proposal {
 
   // Content
   overview: string
-  objectives: string[]
-  deliverables: string[]
+  sections: ProposalSection[] // flexible content sections after overview
 
   // Services
   services: ServiceLine[]

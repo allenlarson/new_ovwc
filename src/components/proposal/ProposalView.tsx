@@ -4,19 +4,35 @@ import { useState, useRef, useEffect } from 'react';
 import { Proposal } from '@/types/proposal';
 import Image from 'next/image';
 
-const TC_TEXT = `1. Services. OVWC Creative will provide the services outlined in this proposal for the agreed retainer. Services begin upon receipt of signed proposal and initial deposit.
+const TC_TEXT = `1. Completion
+Oceanview Web Co. and Client must work together to complete the project in a timely manner. Oceanview Web Co. agrees to work expeditiously to complete the project no later than the Agreed Launch Date.
 
-2. Payment. Invoices are issued on the 1st of each month. Payment is due within 7 days. Late payments incur a 1.5% monthly fee. Services may be paused after 14 days of non-payment.
+2. Payment
+Fees to Oceanview Web Co. are due in accordance with the listed pricing table in the proposal. Work will commence after receipt of a signed proposal and a non-refundable initial deposit of 50%. Fees for monthly services will be invoiced on the 1st business day of each calendar month and are due on a net-30 basis. A late payment fee of 1.5% per month will be applied to any outstanding balance not paid within the agreed terms. All payments will be made in US Dollars.
 
-3. Revisions. Each cycle includes up to 2 rounds of revisions per deliverable. Additional revisions are billed at $75/hour.
+3. Revision During Execution
+The Client may be charged additional fees if it decides to make changes to the agreed-upon project scope and objectives.
 
-4. Cancellation. Either party may cancel with 30 days written notice. Work completed through the notice period will be invoiced at the pro-rated rate.
+4. Legal & License
+Oceanview Web Co. warrants that the functionality contained in this project will meet Client requirements and that the operation will be reasonably error-free. The entire risk as to the quality and performance of the project is with the Client. In no event will Oceanview Web Co. be liable to Client or any third party for any damages, including any lost profits, lost savings, or other incidental, consequential, or special damages arising out of the operation of or inability to operate the website, even if Oceanview Web Co. has been advised of the possibility of such damages. If any provision of this agreement shall be unlawful, void, or for any reason unenforceable, then that provision shall be deemed severable from this agreement and shall not affect the validity and enforceability of any remaining provisions.
 
-5. Intellectual property. Upon full payment, all final deliverables become the property of the client. OVWC Creative retains the right to display work in its portfolio.
+5. Copyrights & Trademarks
+The Client represents to Oceanview Web Co. and unconditionally guarantees that any elements furnished to Oceanview Web Co. for inclusion in the project are owned by the Client, or that the Client has permission from the rightful owner to use each of these elements, and will hold harmless, protect, and defend Oceanview Web Co. and its subcontractors from any claim or suit arising from the use of such elements furnished by the Client.
 
-6. Confidentiality. Both parties agree to keep confidential any proprietary business information shared during the engagement.
+6. Copyright to Project
+Oceanview Web Co. guarantees that all aspects of design and construction of the project will be disclosed to the Client upon completion, and full code, copyrights, and ownership will be the sole property of the Client. Oceanview Web Co. retains the right to display graphics and other design elements as examples of its work in its portfolio.
 
-7. Limitation of liability. OVWC Creative's liability shall not exceed the total fees paid in the 30 days preceding any claim.`;
+7. Confidentiality
+Both parties agree to keep confidential any proprietary or sensitive business information shared during the engagement and to not disclose such information to any third party without prior written consent.
+
+8. Sole Agreement
+The agreement contained in this proposal constitutes the sole agreement between Oceanview Web Co. and the Client regarding this project. Any additional work not specified in this proposal must be authorized by a written change order. All prices specified will be honored for three (3) months after both parties sign this proposal. Continued services after that time will require a new agreement.
+
+9. Termination
+The Client may terminate this agreement at any time by providing written notice via email or certified mail to Oceanview Web Co. Oceanview Web Co. may cancel this agreement in the same manner if necessary. In the event that this agreement is canceled by either party, Oceanview Web Co. shall issue a final invoice for any unbilled time or materials. The Client agrees to pay the final invoice according to the terms of this agreement.
+
+10. Conflict Resolution
+This agreement shall be governed by the laws of Virginia, United States. Should any conflicts arise related to this agreement, the parties agree to seek a suitable resolution through a neutral arbitrator, whose ruling shall be considered final and binding on both parties.`;
 
 export default function ProposalView({ proposal }: { proposal: Proposal }) {
   const [tcOpen, setTcOpen] = useState(false);
@@ -25,6 +41,7 @@ export default function ProposalView({ proposal }: { proposal: Proposal }) {
   const [isSigned, setIsSigned] = useState(proposal.status === 'signed');
   const [signing, setSigning] = useState(false);
   const [sigError, setSigError] = useState('');
+  const [sigImage, setSigImage] = useState(proposal.signature?.imageBase64 ?? '');
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const sigSectionRef = useRef<HTMLDivElement>(null);
   const drawing = useRef(false);
@@ -58,11 +75,10 @@ export default function ProposalView({ proposal }: { proposal: Proposal }) {
 
   function startDraw(e: React.MouseEvent | React.TouchEvent) {
     drawing.current = true;
-    const pos = getPos(
+    lastPos.current = getPos(
       e.nativeEvent as MouseEvent | TouchEvent,
       canvasRef.current!,
     );
-    lastPos.current = pos;
   }
 
   function draw(e: React.MouseEvent | React.TouchEvent) {
@@ -85,8 +101,7 @@ export default function ProposalView({ proposal }: { proposal: Proposal }) {
 
   function clearCanvas() {
     const canvas = canvasRef.current!;
-    const ctx = canvas.getContext('2d')!;
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    canvas.getContext('2d')!.clearRect(0, 0, canvas.width, canvas.height);
     hasDrawn.current = false;
   }
 
@@ -102,12 +117,14 @@ export default function ProposalView({ proposal }: { proposal: Proposal }) {
     }
     setSigning(true);
     try {
+      const imageBase64 = canvasRef.current?.toDataURL('image/png') ?? '';
       const res = await fetch(`/api/proposals/${proposal.slug}/sign`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name: sigName.trim(), title: sigTitle.trim() }),
+        body: JSON.stringify({ name: sigName.trim(), title: sigTitle.trim(), imageBase64 }),
       });
       if (!res.ok) throw new Error('Failed');
+      setSigImage(imageBase64);
       setIsSigned(true);
     } catch {
       setSigError('Something went wrong. Please try again.');
@@ -121,17 +138,15 @@ export default function ProposalView({ proposal }: { proposal: Proposal }) {
   return (
     <div className="min-h-screen bg-[#f5f4f0] font-sans">
       {/* Sticky top bar */}
-      <div className="sticky top-0 z-50 bg-white border-b border-[#e8e5de] flex items-center justify-between px-8 py-3">
-        <span className="text-[13px] text-[#94918a] tracking-[0.01em]">
-          {isSigned
-            ? '✓ Proposal signed'
-            : `Proposal for ${proposal.clientName}`}
+      <div className="sticky top-0 z-50 bg-white border-b border-[#e8e5de] flex items-center justify-between gap-2 px-4 sm:px-8 py-3">
+        <span className="text-[12px] sm:text-[13px] text-[#94918a] tracking-[0.01em] truncate min-w-0">
+          {isSigned ? '✓ Signed' : `Proposal · ${proposal.clientName}`}
         </span>
-        <div className="flex items-center gap-2.5">
+        <div className="flex items-center gap-2 shrink-0">
           <button
             type="button"
             onClick={() => window.print()}
-            className="text-[12px] text-[#94918a] border border-[#e0ddd6] px-3.5 py-1.5 rounded hover:bg-[#faf9f7] transition-colors"
+            className="hidden sm:block text-[12px] text-[#94918a] border border-[#e0ddd6] px-3.5 py-1.5 rounded hover:bg-[#faf9f7] transition-colors"
           >
             Print / PDF
           </button>
@@ -141,7 +156,7 @@ export default function ProposalView({ proposal }: { proposal: Proposal }) {
               onClick={() =>
                 sigSectionRef.current?.scrollIntoView({ behavior: 'smooth' })
               }
-              className="text-[13px] font-medium text-white bg-[#0f172a] px-5 py-2 rounded tracking-[0.01em] hover:bg-[#1e293b] transition-colors"
+              className="text-[12px] sm:text-[13px] font-medium text-white bg-[#0f172a] px-3.5 sm:px-5 py-2 rounded tracking-[0.01em] hover:bg-[#1e293b] transition-colors whitespace-nowrap"
             >
               Accept proposal
             </button>
@@ -152,7 +167,7 @@ export default function ProposalView({ proposal }: { proposal: Proposal }) {
       {/* Document */}
       <div className="max-w-[800px] mx-auto bg-white shadow-[0_2px_40px_rgba(0,0,0,0.07)]">
         {/* Hero */}
-        <div className="relative h-[400px] overflow-hidden bg-[#0f172a]">
+        <div className="relative h-[280px] sm:h-[360px] overflow-hidden bg-[#0f172a]">
           {heroSrc && (
             // eslint-disable-next-line @next/next/no-img-element
             <img
@@ -161,94 +176,115 @@ export default function ProposalView({ proposal }: { proposal: Proposal }) {
               className="w-full h-full object-cover opacity-45 block"
             />
           )}
-          <div className="absolute inset-0 bg-gradient-to-b from-[rgba(15,23,42,0.2)] to-[rgba(15,23,42,0.75)] flex flex-col items-center justify-center text-center px-16 py-10">
+          <div className="absolute inset-0 bg-gradient-to-b from-[rgba(15,23,42,0.2)] to-[rgba(15,23,42,0.75)] flex flex-col items-center justify-center text-center px-8 sm:px-16 py-8">
             <Image
               src="/proposals/ov_logo_white.png"
               alt="OVWC"
               width={300}
               height={125}
-              className="mb-[80px] max-w-[220px]"
+              className="mb-6 sm:mb-10 w-[140px] sm:w-[200px]"
             />
-            <h1 className="text-[28px] font-normal text-white mb-2 leading-tight tracking-[-0.01em]">
+            <h1 className="text-2xl sm:text-4xl md:text-5xl font-medium text-white mb-2 leading-tight tracking-[-0.01em]">
               {proposal.clientName}
             </h1>
-            <p className="text-[13px] text-white/60 font-light">
-              Proposal presented by OVWC Creative
+            <p className="text-[12px] sm:text-[13px] text-white/60 font-light">
+              Proposal presented by Oceanview Web Co.
             </p>
           </div>
         </div>
 
         {/* Body */}
-        <div className="px-12 py-14 md:px-[72px]">
+        <div className="px-5 py-10 sm:px-10 md:px-16 lg:px-[72px]">
           {/* Overview */}
           {proposal.overview && (
-            <section className="mb-12">
-              <SectionTitle>Project overview</SectionTitle>
+            <section className="mb-10">
+              <SectionTitle>Project Overview</SectionTitle>
               <p className="text-[14px] leading-[1.85] text-[#4a4740]">
                 {proposal.overview}
               </p>
             </section>
           )}
 
-          {/* Objectives */}
-          {proposal.objectives.length > 0 && (
-            <section className="mb-12">
-              <SectionTitle>Objectives</SectionTitle>
-              <ul className="pl-5 space-y-1.5">
-                {proposal.objectives.map((o, i) => (
-                  <li
-                    key={i}
-                    className="text-[14px] leading-[1.85] text-[#4a4740]"
-                  >
-                    {o}
-                  </li>
-                ))}
-              </ul>
-            </section>
-          )}
+          {/* Dynamic content sections */}
+          {proposal.sections?.map((section, i) => {
+            const lines = section.content
+              .split('\n')
+              .map(l => l.trim())
+              .filter(Boolean);
+            const isList = lines.length > 1;
+            return (
+              <section key={i} className="mb-10">
+                <SectionTitle>{section.title}</SectionTitle>
+                {isList ? (
+                  <ul className="space-y-3">
+                    {lines.map((line, j) => (
+                      <li key={j} className="flex items-start gap-3">
+                        <span className="w-1.5 h-1.5 rounded-full bg-[#c9a84c] mt-[8px] shrink-0" />
+                        <span className="text-[14px] leading-[1.85] text-[#4a4740]">{line}</span>
+                      </li>
+                    ))}
+                  </ul>
+                ) : (
+                  <p className="text-[14px] leading-[1.85] text-[#4a4740]">
+                    {lines[0]}
+                  </p>
+                )}
+              </section>
+            );
+          })}
 
-          {/* Deliverables */}
-          {proposal.deliverables.length > 0 && (
-            <section className="mb-12">
-              <SectionTitle>What&apos;s included</SectionTitle>
-              <ul className="pl-5 space-y-1.5">
-                {proposal.deliverables.map((d, i) => (
-                  <li
-                    key={i}
-                    className="text-[14px] leading-[1.85] text-[#4a4740]"
-                  >
-                    {d}
-                  </li>
-                ))}
-              </ul>
-            </section>
-          )}
+          {/* Legacy: objectives/deliverables for old proposals */}
+          {!proposal.sections?.length &&
+            (proposal as any).objectives?.length > 0 && (
+              <section className="mb-10">
+                <SectionTitle>Objectives</SectionTitle>
+                <ul className="space-y-3">
+                  {(proposal as any).objectives.map((o: string, i: number) => (
+                    <li key={i} className="flex items-start gap-3">
+                      <span className="w-1.5 h-1.5 rounded-full bg-[#c9a84c] mt-[8px] shrink-0" />
+                      <span className="text-[14px] leading-[1.85] text-[#4a4740]">{o}</span>
+                    </li>
+                  ))}
+                </ul>
+              </section>
+            )}
+          {!proposal.sections?.length &&
+            (proposal as any).deliverables?.length > 0 && (
+              <section className="mb-10">
+                <SectionTitle>What&apos;s included</SectionTitle>
+                <ul className="space-y-3">
+                  {(proposal as any).deliverables.map((d: string, i: number) => (
+                    <li key={i} className="flex items-start gap-3">
+                      <span className="w-1.5 h-1.5 rounded-full bg-[#c9a84c] mt-[8px] shrink-0" />
+                      <span className="text-[14px] leading-[1.85] text-[#4a4740]">{d}</span>
+                    </li>
+                  ))}
+                </ul>
+              </section>
+            )}
 
           {/* Timeline */}
-          {proposal.milestones.length > 0 && (
-            <section className="mb-12">
+          {(proposal.milestones.length > 0 || proposal.timelineEstimate) && (
+            <section className="mb-10">
               <SectionTitle>Timeline</SectionTitle>
               <div className="border border-[#ede9e0] rounded overflow-hidden">
-                <div className="bg-[#f9f8f5] px-6 py-3.5 border-b border-[#ede9e0] flex justify-between items-center">
-                  <span className="text-[12px] text-[#94918a] uppercase tracking-[0.08em]">
-                    Estimated timeline
+                <div className="bg-[#f9f8f5] px-4 sm:px-8 py-5 border-b border-[#ede9e0] flex justify-between items-center gap-4">
+                  <span className="text-[18px] sm:text-[22px] font-medium text-[#0f172a] tracking-[-0.01em]">
+                    Estimated Timeline:
                   </span>
-                  <span className="text-[16px] font-medium text-[#0f172a]">
+                  <span className="text-[18px] sm:text-[22px] font-medium text-[#0f172a] tracking-[-0.01em] whitespace-nowrap">
                     {proposal.timelineEstimate}
                   </span>
                 </div>
                 {proposal.milestones.map((m, i) => (
                   <div
                     key={i}
-                    className={`px-6 py-3.5 flex gap-4 items-start ${i < proposal.milestones.length - 1 ? 'border-b border-[#f2efe8]' : ''}`}
+                    className={`px-4 sm:px-8 py-4 ${i < proposal.milestones.length - 1 ? 'border-b border-[#ede9e0]' : ''} ${i % 2 === 1 ? 'bg-[#f9f8f5]' : 'bg-white'}`}
                   >
-                    <div className="w-1.5 h-1.5 rounded-full bg-[#c9a84c] mt-[7px] shrink-0" />
-                    <div>
-                      <p className="text-[10px] text-[#b5b0a5] uppercase tracking-[0.08em] mb-0.5">
-                        {m.label}
-                      </p>
-                      <p className="text-[14px] text-[#2d2a24]">{m.task}</p>
-                    </div>
+                    <p className="text-[10px] font-semibold text-[#94918a] uppercase tracking-[0.1em] mb-1">
+                      {m.label}
+                    </p>
+                    <p className="text-[15px] font-medium text-[#0f172a]">{m.task}</p>
                   </div>
                 ))}
               </div>
@@ -257,13 +293,13 @@ export default function ProposalView({ proposal }: { proposal: Proposal }) {
 
           {/* Investment */}
           {proposal.services.length > 0 && (
-            <section className="mb-12">
+            <section className="mb-10">
               <SectionTitle>Your investment</SectionTitle>
               <table className="w-full border-collapse">
                 <tbody>
                   {proposal.services.map((s, i) => (
                     <tr key={i} className="border-b border-[#f2efe8]">
-                      <td className="py-3 text-[14px] text-[#2d2a24]">
+                      <td className="py-3 pr-4 text-[14px] text-[#2d2a24]">
                         {s.name}
                         {s.description && (
                           <div className="text-[12px] text-[#94918a] mt-0.5">
@@ -271,17 +307,17 @@ export default function ProposalView({ proposal }: { proposal: Proposal }) {
                           </div>
                         )}
                       </td>
-                      <td className="py-3 text-[14px] font-medium text-[#0f172a] text-right">
+                      <td className="py-3 text-[14px] font-medium text-[#0f172a] text-right whitespace-nowrap">
                         {s.price}
                       </td>
                     </tr>
                   ))}
                   {total > 0 && (
                     <tr>
-                      <td className="pt-[18px] text-[15px] font-medium text-[#0f172a] border-t-[1.5px] border-[#e0ddd6]">
+                      <td className="pt-4 text-[15px] font-medium text-[#0f172a] border-t-[1.5px] border-[#e0ddd6]">
                         Total
                       </td>
-                      <td className="pt-[18px] text-[15px] font-medium text-[#0f172a] text-right border-t-[1.5px] border-[#e0ddd6]">
+                      <td className="pt-4 text-[15px] font-medium text-[#0f172a] text-right border-t-[1.5px] border-[#e0ddd6] whitespace-nowrap">
                         ${total.toLocaleString()}
                       </td>
                     </tr>
@@ -293,15 +329,15 @@ export default function ProposalView({ proposal }: { proposal: Proposal }) {
 
           {/* Next steps */}
           {proposal.nextSteps.length > 0 && (
-            <section className="mb-12">
+            <section className="mb-10">
               <SectionTitle>Next steps</SectionTitle>
-              <ol className="pl-5 space-y-2">
+              <ol className="space-y-3">
                 {proposal.nextSteps.map((s, i) => (
-                  <li
-                    key={i}
-                    className="text-[14px] leading-[1.85] text-[#4a4740]"
-                  >
-                    {s}
+                  <li key={i} className="flex items-start gap-3">
+                    <span className="w-5 h-5 rounded-full bg-[#0f172a] text-white text-[10px] font-semibold flex items-center justify-center shrink-0 mt-[3px] leading-none">
+                      {i + 1}
+                    </span>
+                    <span className="text-[14px] leading-[1.85] text-[#4a4740]">{s}</span>
                   </li>
                 ))}
               </ol>
@@ -309,22 +345,22 @@ export default function ProposalView({ proposal }: { proposal: Proposal }) {
           )}
 
           {/* Terms & Conditions */}
-          <section className="mb-12">
+          <section className="mb-10">
             <SectionTitle>Terms &amp; conditions</SectionTitle>
             <button
               type="button"
               onClick={() => setTcOpen(v => !v)}
-              className={`w-full text-left bg-[#f9f8f5] border border-[#ede9e0] px-5 py-3.5 text-[13px] font-medium text-[#2d2a24] flex justify-between items-center cursor-pointer hover:bg-[#f2efe8] transition-colors ${tcOpen ? 'rounded-t' : 'rounded'}`}
+              className={`w-full text-left bg-[#f9f8f5] border border-[#ede9e0] px-4 sm:px-5 py-3.5 text-[13px] font-medium text-[#2d2a24] flex justify-between items-center hover:bg-[#f2efe8] transition-colors ${tcOpen ? 'rounded-t' : 'rounded'}`}
             >
               <span>View terms &amp; conditions</span>
               <span
-                className={`text-[10px] transition-transform duration-200 ${tcOpen ? 'rotate-180' : ''}`}
+                className={`text-[10px] transition-transform duration-200 shrink-0 ml-2 ${tcOpen ? 'rotate-180' : ''}`}
               >
                 ▼
               </span>
             </button>
             {tcOpen && (
-              <div className="border border-[#ede9e0] border-t-0 rounded-b px-6 py-5">
+              <div className="border border-[#ede9e0] border-t-0 rounded-b px-4 sm:px-6 py-5">
                 {TC_TEXT.split('\n\n').map((para, i) => (
                   <p
                     key={i}
@@ -342,16 +378,36 @@ export default function ProposalView({ proposal }: { proposal: Proposal }) {
             <SectionTitle>Approve proposal</SectionTitle>
 
             {isSigned ? (
-              <div className="bg-[#f0faf5] border border-[#a3d4b5] rounded p-8 text-center">
-                <div className="text-[32px] text-[#1e7a4a] mb-3">✓</div>
-                <p className="text-[15px] font-medium text-[#1e7a4a] mb-1.5">
-                  Proposal accepted
-                </p>
-                <p className="text-[13px] text-[#5a8c6e] mb-5">
-                  {proposal.signature
-                    ? `Signed by ${proposal.signature.name} on ${new Date(proposal.signature.signedAt).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}`
-                    : 'Your signature has been recorded.'}
-                </p>
+              <div className="bg-[#f0faf5] border border-[#a3d4b5] rounded p-6 sm:p-8">
+                <div className="flex items-center gap-3 mb-5">
+                  <div className="w-8 h-8 rounded-full bg-[#1e7a4a] flex items-center justify-center shrink-0">
+                    <span className="text-white text-[14px] font-bold">✓</span>
+                  </div>
+                  <div>
+                    <p className="text-[15px] font-medium text-[#1e7a4a]">Proposal accepted</p>
+                    <p className="text-[12px] text-[#5a8c6e]">
+                      {proposal.signature
+                        ? `Signed by ${proposal.signature.name}${proposal.signature.title ? `, ${proposal.signature.title}` : ''} · ${new Date(proposal.signature.signedAt).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}`
+                        : 'Your signature has been recorded.'}
+                    </p>
+                  </div>
+                </div>
+
+                {/* Signature image */}
+                {sigImage && (
+                  <div className="bg-white border border-[#a3d4b5] rounded p-4 mb-5">
+                    <p className="text-[10px] font-semibold text-[#94918a] uppercase tracking-[0.1em] mb-2">Signature</p>
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img src={sigImage} alt="Signature" className="max-h-[80px] w-auto" />
+                    <div className="mt-2 pt-2 border-t border-[#e0ddd6]">
+                      <p className="text-[13px] font-medium text-[#0f172a]">{proposal.signature?.name}</p>
+                      {proposal.signature?.title && (
+                        <p className="text-[12px] text-[#94918a]">{proposal.signature.title}</p>
+                      )}
+                    </div>
+                  </div>
+                )}
+
                 <button
                   type="button"
                   onClick={() => window.print()}
@@ -361,13 +417,13 @@ export default function ProposalView({ proposal }: { proposal: Proposal }) {
                 </button>
               </div>
             ) : (
-              <div className="bg-[#f9f8f5] border border-[#ede9e0] rounded p-8">
+              <div className="bg-[#f9f8f5] border border-[#ede9e0] rounded p-5 sm:p-8">
                 <p className="text-[13px] text-[#94918a] mb-5 leading-relaxed">
                   To accept this proposal, enter your full name and draw your
                   signature below.
                 </p>
 
-                <div className="grid grid-cols-2 gap-3 mb-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-4">
                   <div>
                     <label
                       htmlFor="sig-name"
@@ -407,7 +463,7 @@ export default function ProposalView({ proposal }: { proposal: Proposal }) {
                   <div className="border border-[#d8d4cc] rounded bg-white overflow-hidden">
                     <canvas
                       ref={canvasRef}
-                      className="block w-full h-[120px] cursor-crosshair touch-none"
+                      className="block w-full h-[100px] sm:h-[120px] cursor-crosshair touch-none"
                       onMouseDown={startDraw}
                       onMouseMove={draw}
                       onMouseUp={stopDraw}
@@ -444,14 +500,14 @@ export default function ProposalView({ proposal }: { proposal: Proposal }) {
         </div>
       </div>
 
-      <div className="h-[60px]" />
+      <div className="h-10 sm:h-[60px]" />
     </div>
   );
 }
 
 function SectionTitle({ children }: { children: React.ReactNode }) {
   return (
-    <h2 className="text-[20px] font-normal text-[#0f172a] mb-4 pb-3 border-b border-[#ede9e0] tracking-[-0.01em]">
+    <h2 className="text-xl sm:text-2xl font-medium text-[#0f172a] mb-4 pb-3 border-b border-[#ede9e0] tracking-[-0.01em] capitalize">
       {children}
     </h2>
   );
