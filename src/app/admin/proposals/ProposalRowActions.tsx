@@ -29,6 +29,8 @@ export default function ProposalRowActions({
   const router = useRouter();
   const [duplicating, setDuplicating] = useState(false);
   const [deleting, setDeleting] = useState(false);
+  const [creatingInvoice, setCreatingInvoice] = useState(false);
+  const [invoiceUrl, setInvoiceUrl] = useState(p.waveInvoiceUrl || '');
 
   async function handleDuplicate() {
     setDuplicating(true);
@@ -72,6 +74,28 @@ export default function ProposalRowActions({
     }
   }
 
+  async function handleCreateInvoice() {
+    setCreatingInvoice(true);
+    try {
+      const res = await fetch(`/api/proposals/${p.slug}/invoice`, { method: 'POST' });
+      const data = await res.json();
+      if (!res.ok) {
+        if (data.invoiceUrl) {
+          setInvoiceUrl(data.invoiceUrl);
+        } else {
+          throw new Error(data.error || 'Failed');
+        }
+        return;
+      }
+      setInvoiceUrl(data.invoiceUrl);
+      alert(`Invoice #${data.invoiceNumber} created in Wave!`);
+    } catch {
+      alert('Failed to create invoice in Wave. Check the console for details.');
+    } finally {
+      setCreatingInvoice(false);
+    }
+  }
+
   return (
     <div className="flex items-center gap-1.5 sm:gap-2">
       <Link
@@ -88,6 +112,25 @@ export default function ProposalRowActions({
       >
         {duplicating ? 'Copying…' : 'Duplicate'}
       </button>
+      {invoiceUrl ? (
+        <a
+          href={invoiceUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-[12px] text-[#2563eb] border border-blue-200 px-3.5 py-1.5 rounded hover:bg-blue-50 transition-colors"
+        >
+          Invoice ↗
+        </a>
+      ) : (
+        <button
+          type="button"
+          onClick={handleCreateInvoice}
+          disabled={creatingInvoice}
+          className="text-[12px] text-[#5a5650] border border-[#e0ddd6] px-3.5 py-1.5 rounded hover:bg-[#faf9f7] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+        >
+          {creatingInvoice ? 'Creating…' : 'Invoice'}
+        </button>
+      )}
       <Link
         href={`/proposal/${p.slug}`}
         target="_blank"

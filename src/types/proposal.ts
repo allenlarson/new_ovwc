@@ -55,6 +55,11 @@ export interface Proposal {
   // Signature (set when signed)
   signature?: Signature
 
+  // Wave invoice (set after signing)
+  waveInvoiceId?: string
+  waveInvoiceUrl?: string
+  waveInvoiceNumber?: string
+
   // Meta
   validUntil?: string
   createdAt: string

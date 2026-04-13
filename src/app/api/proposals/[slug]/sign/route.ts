@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getProposalBySlug, saveProposal } from '@/lib/proposals';
+import { createWaveInvoice } from '@/lib/wave';
 
 export async function POST(req: NextRequest, { params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
@@ -20,5 +21,18 @@ export async function POST(req: NextRequest, { params }: { params: Promise<{ slu
   };
 
   await saveProposal(proposal);
+
+  // Auto-create Wave invoice (best-effort — don't fail the signing if Wave errors)
+  try {
+    const invoice = await createWaveInvoice(proposal);
+    proposal.waveInvoiceId = invoice.id;
+    proposal.waveInvoiceUrl = invoice.viewUrl;
+    proposal.waveInvoiceNumber = invoice.invoiceNumber;
+    await saveProposal(proposal);
+    console.log(`[Wave] Invoice ${invoice.invoiceNumber} created for ${proposal.clientName}`);
+  } catch (err) {
+    console.error('[Wave] Failed to create invoice:', err);
+  }
+
   return NextResponse.json(proposal);
 }
