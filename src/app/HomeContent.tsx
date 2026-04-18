@@ -81,21 +81,21 @@ export default function HomeContent() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: [0.4, 0, 0.2, 1] }}
-            className="max-w-4xl"
+            className="max-w-4xl text-center sm:text-left"
           >
-            <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-medium leading-[0.95] tracking-tight mb-8">
+            <h1 className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-medium leading-[1] sm:leading-[0.95] tracking-tight mb-8">
               We Build Websites
-              <br />
-              That Turn Visitors
-              <br />
-              Into{' '}
+              <br className="hidden sm:block" />
+              {' '}That Turn Visitors
+              <br className="hidden sm:block" />
+              {' '}Into{' '}
               <span className="font-serif italic gradient-text">Clients</span>
             </h1>
-            <p className="text-lg md:text-xl max-w-xl mb-10 leading-relaxed text-muted">
+            <p className="text-base sm:text-lg md:text-xl max-w-xl mb-10 leading-relaxed text-muted mx-auto sm:mx-0">
               Premium web design and digital marketing for businesses ready to
               grow. Your success is our craft.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4">
+            <div className="flex flex-col sm:flex-row gap-4 items-center sm:items-start">
               <button
                 onClick={() => setPopupOpen(true)}
                 className="w-full sm:w-auto px-8 py-4 rounded-full bg-gradient-to-r from-accent-pink to-accent-purple text-white font-medium hover:shadow-xl hover:shadow-accent-purple/20 transition-all duration-300 hover:scale-105"
