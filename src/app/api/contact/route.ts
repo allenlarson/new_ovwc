@@ -31,6 +31,7 @@ export async function POST(request: Request) {
         name: 'Oceanview Web Co',
       },
       to: [{ email: process.env.CONTACT_TO_EMAIL! }],
+      replyTo: [{ email, name }],
       subject: `New Project Inquiry from ${escapeHtml(name)}`,
       html: `
         <div style="font-family: 'Helvetica Neue', Arial, sans-serif; max-width: 600px; margin: 0 auto; background: #0a0a0a; color: #f5f5f5; border-radius: 12px; overflow: hidden;">
