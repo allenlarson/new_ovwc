@@ -189,7 +189,7 @@ export const projects = [
     title: 'RYL Distribution',
     industry: 'Distribution',
     desc: 'A bold distribution company website featuring product catalog, territory coverage, and wholesale inquiry tools built to scale B2B relationships.',
-    image: '/work/ryldistro.webp',
+    image: '/work/RylDistro.webp',
   },
   {
     title: "Christie's Cakes",
