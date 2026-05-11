@@ -2,6 +2,8 @@ import Link from 'next/link';
 import { getAllProposals } from '@/lib/proposals';
 import ProposalList from './ProposalList';
 
+export const dynamic = 'force-dynamic';
+
 export default async function AdminProposalsPage() {
   const proposals = await getAllProposals();
 

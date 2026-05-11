@@ -2,6 +2,8 @@ import { notFound } from 'next/navigation';
 import { getProposalBySlug, saveProposal } from '@/lib/proposals';
 import ProposalView from '@/components/proposal/ProposalView';
 
+export const dynamic = 'force-dynamic';
+
 interface Props {
   params: Promise<{ slug: string }>;
 }
