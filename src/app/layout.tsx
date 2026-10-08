@@ -112,6 +112,10 @@ export default function RootLayout({
               telephone: '+19492347170',
               areaServed: 'United States',
               priceRange: '$$$',
+              sameAs: [
+                'https://www.facebook.com/OVWebCo/',
+                'https://www.instagram.com/ovwebco/',
+              ],
               serviceType: [
                 'Web Design',
                 'SEO',

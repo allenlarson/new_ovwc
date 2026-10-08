@@ -108,20 +108,20 @@ export default function ContactContent() {
                     {[
                       {
                         label: 'Facebook',
+                        href: 'https://www.facebook.com/OVWebCo/',
                         path: 'M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z',
                       },
                       {
                         label: 'Instagram',
+                        href: 'https://www.instagram.com/ovwebco/',
                         path: 'M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37zm1.5-4.87h.01M6.5 2h11A4.5 4.5 0 0122 6.5v11a4.5 4.5 0 01-4.5 4.5h-11A4.5 4.5 0 012 17.5v-11A4.5 4.5 0 016.5 2z',
-                      },
-                      {
-                        label: 'LinkedIn',
-                        path: 'M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2zM4 2a2 2 0 110 4 2 2 0 010-4z',
                       },
                     ].map(social => (
                       <a
                         key={social.label}
-                        href="#"
+                        href={social.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
                         aria-label={social.label}
                         className="w-10 h-10 rounded-full border border-card-border flex items-center justify-center hover:border-accent-pink hover:text-accent-pink transition-colors"
                       >
