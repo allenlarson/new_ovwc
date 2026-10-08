@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import SectionReveal from '@/components/SectionReveal';
 import HeroSection from '@/components/HeroSection';
+import Honeypot from '@/components/Honeypot';
 
 export default function ContactContent() {
   const [formData, setFormData] = useState({
@@ -17,6 +18,8 @@ export default function ContactContent() {
   const [submitted, setSubmitted] = useState(false);
   const [sending, setSending] = useState(false);
   const [error, setError] = useState('');
+  const [website, setWebsite] = useState('');
+  const [startedAt] = useState(() => Date.now());
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -27,7 +30,7 @@ export default function ContactContent() {
       const res = await fetch('/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({ ...formData, website, elapsed: Date.now() - startedAt }),
       });
 
       if (!res.ok) {
@@ -204,6 +207,7 @@ export default function ContactContent() {
                     </p>
 
                     <form onSubmit={handleSubmit} className="space-y-6">
+                      <Honeypot value={website} onChange={setWebsite} />
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div>
                           <label

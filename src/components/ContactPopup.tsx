@@ -2,6 +2,7 @@
 
 import { motion, AnimatePresence } from 'framer-motion';
 import { useState } from 'react';
+import Honeypot from './Honeypot';
 
 interface ContactPopupProps {
   open: boolean;
@@ -20,6 +21,8 @@ export default function ContactPopup({ open, onClose }: ContactPopupProps) {
   const [submitted, setSubmitted] = useState(false);
   const [sending, setSending] = useState(false);
   const [error, setError] = useState('');
+  const [website, setWebsite] = useState('');
+  const [startedAt] = useState(() => Date.now());
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -30,7 +33,7 @@ export default function ContactPopup({ open, onClose }: ContactPopupProps) {
       const res = await fetch('/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({ ...formData, website, elapsed: Date.now() - startedAt }),
       });
 
       if (!res.ok) {
@@ -106,6 +109,7 @@ export default function ContactPopup({ open, onClose }: ContactPopupProps) {
                   <p className="text-muted text-sm mb-6">Tell us about your vision and we&apos;ll bring it to life.</p>
 
                   <form onSubmit={handleSubmit} className="space-y-4">
+                    <Honeypot value={website} onChange={setWebsite} />
                     <div className="grid grid-cols-2 gap-4">
                       <div>
                         <label htmlFor="popup-name" className="sr-only">Name</label>

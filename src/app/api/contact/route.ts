@@ -1,5 +1,6 @@
 import { ToSend } from 'tosend';
 import { NextResponse } from 'next/server';
+import { spamReason } from '@/lib/spam';
 
 function escapeHtml(str: string): string {
   return str
@@ -14,7 +15,8 @@ const tosend = new ToSend(process.env.TOSEND_API_KEY!);
 
 export async function POST(request: Request) {
   try {
-    const { name, email, phone, company, service, message } = await request.json();
+    const body = await request.json();
+    const { name, email, phone, company, service, message } = body;
 
     // Validate required fields
     if (!name || !email || !message) {
@@ -22,6 +24,13 @@ export async function POST(request: Request) {
         { error: 'Name, email, and message are required.' },
         { status: 400 }
       );
+    }
+
+    // Silently drop spam: report success so bots learn nothing, but send no email.
+    const reason = spamReason(body);
+    if (reason) {
+      console.warn(`[contact] Dropped spam submission (${reason})`);
+      return NextResponse.json({ success: true });
     }
 
     // Send notification email to Allen
