@@ -287,4 +287,22 @@ export const projects = [
     desc: 'A bold platform site for real estate investors, walking flippers through finding motivated sellers, repairs, contracts, selling, and funding — built to drive sign-ups.',
     image: '/work/myflipstack.webp',
   },
+  {
+    title: 'AKK Painting',
+    industry: 'Services',
+    desc: 'A vibrant, paint-splashed website for a Norfolk painting company, showcasing residential and commercial services, cabinet refinishing, epoxy flooring, and glowing reviews that drive free-estimate requests.',
+    image: '/work/akkpainting.webp',
+  },
+  {
+    title: 'Waldo & Lyle',
+    industry: 'Law',
+    desc: 'An authoritative website for a leading eminent domain law firm serving Virginia, North Carolina, and DC, built to explain property owners\' rights, showcase case results, and drive consultations.',
+    image: '/work/waldoandlyle.webp',
+  },
+  {
+    title: 'Better View Windows and More',
+    industry: 'Services',
+    desc: 'A conversion-focused website for a Virginia Beach window and door replacement company, featuring product galleries, financing offers, review highlights, and easy appointment scheduling.',
+    image: '/work/yourbetterview.webp',
+  },
 ];
