@@ -283,7 +283,7 @@ export const projects = [
   },
   {
     title: 'Flip $tack',
-    industry: 'Real Estate',
+    industry: 'Technology',
     desc: 'A bold platform site for real estate investors, walking flippers through finding motivated sellers, repairs, contracts, selling, and funding — built to drive sign-ups.',
     image: '/work/myflipstack.webp',
   },
