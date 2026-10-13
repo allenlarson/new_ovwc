@@ -275,4 +275,16 @@ export const projects = [
     desc: 'A clean B2B distribution site for a perishable goods operator, featuring product lines, cold chain capabilities, and a streamlined wholesale partnership inquiry.',
     image: '/work/shelf-life.webp',
   },
+  {
+    title: 'Wall To Wall Appliance Repair',
+    industry: 'Services',
+    desc: 'A family-owned Virginia Beach appliance repair site with service pages for every major appliance, service-area coverage across Hampton Roads, membership plans, and one-click scheduling.',
+    image: '/work/walltowallappliancerepair.webp',
+  },
+  {
+    title: 'Flip $tack',
+    industry: 'Real Estate',
+    desc: 'A bold platform site for real estate investors, walking flippers through finding motivated sellers, repairs, contracts, selling, and funding — built to drive sign-ups.',
+    image: '/work/myflipstack.webp',
+  },
 ];
