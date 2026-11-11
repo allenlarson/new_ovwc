@@ -20,7 +20,7 @@ export default function HeroSection({
     <section className="relative pt-40 pb-20 px-6 mesh-bg noise overflow-hidden">
       <div className={`${maxWidth} mx-auto relative z-10 ${center ? 'text-center' : ''}`}>
         <SectionReveal>
-          <p className="text-sm uppercase tracking-widest text-accent-purple mb-4">
+          <p className="text-sm uppercase tracking-widest text-accent mb-4">
             {tag}
           </p>
           <h1 className="text-5xl md:text-7xl lg:text-8xl font-medium leading-[0.95] tracking-tight mb-8">

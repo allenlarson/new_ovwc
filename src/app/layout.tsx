@@ -1,7 +1,8 @@
 import type { Metadata } from 'next';
-import { DM_Sans, DM_Serif_Display } from 'next/font/google';
+import { DM_Sans, Instrument_Serif } from 'next/font/google';
 import Script from 'next/script';
 import './globals.css';
+import './ocean.css';
 import { ThemeProvider } from '@/context/ThemeContext';
 import SiteChrome from '@/components/SiteChrome';
 
@@ -11,11 +12,11 @@ const dmSans = DM_Sans({
   variable: '--font-dm-sans',
 });
 
-const dmSerif = DM_Serif_Display({
+const instrumentSerif = Instrument_Serif({
   subsets: ['latin'],
   weight: '400',
-  style: 'italic',
-  variable: '--font-dm-serif',
+  style: ['normal', 'italic'],
+  variable: '--font-ov-serif',
 });
 
 export const metadata: Metadata = {
@@ -78,7 +79,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${dmSans.variable} ${dmSerif.variable}`}
+      className={`${dmSans.variable} ${instrumentSerif.variable}`}
       suppressHydrationWarning
     >
       <head>

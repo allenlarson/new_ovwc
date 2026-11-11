@@ -3,33 +3,41 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --color-accent-pink: #9d174d;
-  --color-accent-purple: #4c1d95;
+  --color-accent: var(--accent);
+  /* Button gradient ends (names kept from the old pink/purple theme) */
+  --color-accent-pink: var(--btn-a);
+  --color-accent-purple: var(--btn-b);
   --color-card: var(--card-bg);
   --color-card-border: var(--card-border);
   --color-muted: var(--muted);
   --font-sans: "DM Sans", sans-serif;
-  --font-serif: "DM Serif Display", serif;
+  --font-serif: var(--font-ov-serif), Georgia, serif;
 }
 
 :root {
-  --background: #0a0a0a;
-  --foreground: #f5f5f5;
-  --card-bg: rgba(255, 255, 255, 0.05);
-  --card-border: rgba(255, 255, 255, 0.1);
-  --muted: rgba(255, 255, 255, 0.8);
-  --glass-bg: rgba(10, 10, 10, 0.6);
-  --glass-border: rgba(255, 255, 255, 0.08);
+  --background: #03131f;
+  --foreground: #effbff;
+  --card-bg: rgba(120, 205, 235, 0.06);
+  --card-border: rgba(150, 220, 240, 0.16);
+  --muted: rgba(226, 245, 252, 0.8);
+  --glass-bg: rgba(4, 30, 46, 0.82);
+  --glass-border: rgba(160, 225, 245, 0.17);
+  --accent: #5fd8ec;
+  --btn-a: #0881ad;
+  --btn-b: #016a94;
 }
 
 :root.light {
-  --background: #ffffff;
-  --foreground: #0a0a0a;
-  --card-bg: rgba(0, 0, 0, 0.03);
-  --card-border: rgba(0, 0, 0, 0.08);
-  --muted: rgba(0, 0, 0, 0.5);
-  --glass-bg: rgba(255, 255, 255, 0.7);
-  --glass-border: rgba(0, 0, 0, 0.06);
+  --background: #f2f9fb;
+  --foreground: #06202e;
+  --card-bg: rgba(255, 255, 255, 0.72);
+  --card-border: rgba(1, 90, 128, 0.18);
+  --muted: rgba(6, 32, 46, 0.8);
+  --glass-bg: rgba(255, 255, 255, 0.88);
+  --glass-border: rgba(1, 121, 168, 0.2);
+  --accent: #016a94;
+  --btn-a: #017099;
+  --btn-b: #015e82;
 }
 
 * {
@@ -39,16 +47,6 @@
 
 button {
   cursor: pointer;
-}
-
-/* Logo hover gradient effect */
-.logo-path {
-  fill: currentColor;
-  transition: fill 0.4s ease;
-}
-
-.logo-hover:hover .logo-path {
-  fill: url(#logo-hover-gradient);
 }
 
 body {
@@ -61,17 +59,11 @@ body {
 
 /* Gradient text utility */
 .gradient-text {
-  background: linear-gradient(135deg, #9d174d, #4c1d95);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  color: var(--accent);
 }
 
 .gradient-text-reverse {
-  background: linear-gradient(135deg, #4c1d95, #9d174d);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  color: var(--accent);
 }
 
 /* Gradient border */
@@ -84,7 +76,7 @@ body {
   inset: 0;
   border-radius: inherit;
   padding: 1px;
-  background: linear-gradient(135deg, #9d174d, #4c1d95);
+  background: linear-gradient(135deg, #00bad5, #0179a8);
   -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
   mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
   -webkit-mask-composite: xor;
@@ -102,16 +94,16 @@ body {
 /* Abstract mesh background */
 .mesh-bg {
   background-image:
-    radial-gradient(at 20% 80%, rgba(76, 29, 149, 0.15) 0px, transparent 50%),
-    radial-gradient(at 80% 20%, rgba(157, 23, 77, 0.1) 0px, transparent 50%),
-    radial-gradient(at 50% 50%, rgba(76, 29, 149, 0.05) 0px, transparent 70%);
+    radial-gradient(at 20% 80%, rgba(1, 121, 168, 0.15) 0px, transparent 50%),
+    radial-gradient(at 80% 20%, rgba(0, 186, 213, 0.1) 0px, transparent 50%),
+    radial-gradient(at 50% 50%, rgba(1, 121, 168, 0.05) 0px, transparent 70%);
 }
 
 .light .mesh-bg {
   background-image:
-    radial-gradient(at 20% 80%, rgba(76, 29, 149, 0.08) 0px, transparent 50%),
-    radial-gradient(at 80% 20%, rgba(157, 23, 77, 0.06) 0px, transparent 50%),
-    radial-gradient(at 50% 50%, rgba(76, 29, 149, 0.03) 0px, transparent 70%);
+    radial-gradient(at 20% 80%, rgba(1, 121, 168, 0.08) 0px, transparent 50%),
+    radial-gradient(at 80% 20%, rgba(0, 186, 213, 0.06) 0px, transparent 50%),
+    radial-gradient(at 50% 50%, rgba(1, 121, 168, 0.03) 0px, transparent 70%);
 }
 
 
@@ -134,7 +126,7 @@ body {
   background: var(--background);
 }
 ::-webkit-scrollbar-thumb {
-  background: linear-gradient(135deg, #9d174d, #4c1d95);
+  background: linear-gradient(135deg, #00bad5, #0179a8);
   border-radius: 3px;
 }
 
@@ -146,12 +138,13 @@ body {
 
 /* Selection */
 ::selection {
-  background: rgba(76, 29, 149, 0.3);
+  background: rgba(1, 121, 168, 0.3);
   color: inherit;
 }
 
 /* Focus styles */
 :focus-visible {
-  outline: 2px solid #4c1d95;
+  outline: 2px solid var(--accent);
   outline-offset: 2px;
 }
+

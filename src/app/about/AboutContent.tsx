@@ -167,7 +167,7 @@ export default function AboutContent() {
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             <SectionReveal>
-              <p className="text-sm uppercase tracking-widest text-accent-purple mb-4">
+              <p className="text-sm uppercase tracking-widest text-accent mb-4">
                 Our Story
               </p>
               <h2 className="text-4xl md:text-5xl font-medium leading-tight mb-8">
@@ -204,7 +204,7 @@ export default function AboutContent() {
             <SectionReveal delay={0.2} direction="right">
               <div className="relative flex items-center justify-center p-8">
                 <img
-                  src="/ovwc_logo_gradient.svg"
+                  src="/Just_OV_Colored.svg"
                   alt="Oceanview Web Co. Logo"
                   className="w-full max-w-sm mx-auto"
                 />
@@ -218,7 +218,7 @@ export default function AboutContent() {
       <section className="py-32 px-6">
         <div className="max-w-7xl mx-auto">
           <SectionReveal>
-            <p className="text-sm uppercase tracking-widest text-accent-purple mb-4 text-center">
+            <p className="text-sm uppercase tracking-widest text-accent mb-4 text-center">
               What We Believe
             </p>
             <h2 className="text-4xl md:text-5xl font-medium text-center mb-20">
@@ -230,8 +230,8 @@ export default function AboutContent() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {values.map((value, i) => (
               <SectionReveal key={value.title} delay={i * 0.1}>
-                <div className="bg-card border border-card-border rounded-2xl p-8 hover:border-accent-purple/30 transition-all duration-500">
-                  <span className="text-sm text-accent-purple">0{i + 1}</span>
+                <div className="bg-card border border-card-border rounded-2xl p-8 hover:border-accent/30 transition-all duration-500">
+                  <span className="text-sm text-accent">0{i + 1}</span>
                   <h3 className="text-xl font-medium mt-3 mb-3">
                     {value.title}
                   </h3>
@@ -247,7 +247,7 @@ export default function AboutContent() {
       <section className="py-32 px-6">
         <div className="max-w-7xl mx-auto">
           <SectionReveal>
-            <p className="text-sm uppercase tracking-widest text-accent-purple mb-4 text-center">
+            <p className="text-sm uppercase tracking-widest text-accent mb-4 text-center">
               Who We Serve
             </p>
             <h2 className="text-4xl md:text-5xl font-medium text-center mb-6">
@@ -267,8 +267,8 @@ export default function AboutContent() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {industries.map((industry, i) => (
               <SectionReveal key={industry.name} delay={i * 0.1}>
-                <div className="bg-card border border-card-border rounded-2xl p-8 hover:border-accent-purple/30 transition-all duration-500 group">
-                  <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-accent-pink/10 to-accent-purple/10 flex items-center justify-center mb-6 text-accent-purple group-hover:from-accent-pink/20 group-hover:to-accent-purple/20 transition-colors">
+                <div className="bg-card border border-card-border rounded-2xl p-8 hover:border-accent/30 transition-all duration-500 group">
+                  <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-accent-pink/10 to-accent-purple/10 flex items-center justify-center mb-6 text-accent group-hover:from-accent-pink/20 group-hover:to-accent-purple/20 transition-colors">
                     {industry.icon}
                   </div>
                   <h3 className="text-xl font-medium mb-3">{industry.name}</h3>

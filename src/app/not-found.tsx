@@ -4,7 +4,7 @@ export default function NotFound() {
   return (
     <section className="relative pt-40 pb-32 px-6 mesh-bg noise overflow-hidden min-h-[70vh] flex items-center">
       <div className="max-w-3xl mx-auto text-center relative z-10">
-        <p className="text-sm uppercase tracking-widest text-accent-purple mb-4">
+        <p className="text-sm uppercase tracking-widest text-accent mb-4">
           404
         </p>
         <h1 className="text-5xl md:text-7xl font-medium leading-tight tracking-tight mb-6">

@@ -107,7 +107,7 @@ export default function ServicesContent() {
                 }`}
               >
                 <div className={i % 2 === 1 ? 'lg:order-2' : ''}>
-                  <span className="text-sm text-accent-purple">{service.num}</span>
+                  <span className="text-sm text-accent">{service.num}</span>
                   <h2 className="text-4xl md:text-5xl font-medium mt-2 mb-4">{service.title}</h2>
                   <p className="text-xl text-muted font-serif italic mb-6">{service.subtitle}</p>
                   <p className="text-muted leading-relaxed mb-8">{service.desc}</p>
@@ -121,11 +121,11 @@ export default function ServicesContent() {
 
                 <div className={i % 2 === 1 ? 'lg:order-1' : ''}>
                   <div className="bg-card border border-card-border rounded-2xl p-8">
-                    <h3 className="text-sm uppercase tracking-widest text-accent-purple mb-6">What&apos;s Included</h3>
+                    <h3 className="text-sm uppercase tracking-widest text-accent mb-6">What&apos;s Included</h3>
                     <ul className="space-y-4">
                       {service.features.map((feature) => (
                         <li key={feature} className="flex items-start gap-3">
-                          <svg className="w-5 h-5 shrink-0 mt-0.5 text-accent-pink" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                          <svg className="w-5 h-5 shrink-0 mt-0.5 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                             <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
                           </svg>
                           <span className="text-muted">{feature}</span>
@@ -144,7 +144,7 @@ export default function ServicesContent() {
       <section className="py-32 px-6">
         <div className="max-w-7xl mx-auto">
           <SectionReveal>
-            <p className="text-sm uppercase tracking-widest text-accent-purple mb-4 text-center">How It Works</p>
+            <p className="text-sm uppercase tracking-widest text-accent mb-4 text-center">How It Works</p>
             <h2 className="text-4xl md:text-5xl font-medium text-center mb-20">
               Our <span className="font-serif italic gradient-text">Process</span>
             </h2>
@@ -159,7 +159,7 @@ export default function ServicesContent() {
               { step: '05', title: 'Launch', desc: 'Deployment, training, and ongoing support. We\'re with you long after go-live.' },
             ].map((phase, i) => (
               <SectionReveal key={phase.step} delay={i * 0.1}>
-                <div className="text-center bg-card border border-card-border rounded-2xl p-6 h-full hover:border-accent-purple/30 transition-all duration-500">
+                <div className="text-center bg-card border border-card-border rounded-2xl p-6 h-full hover:border-accent/30 transition-all duration-500">
                   <span className="text-3xl font-medium gradient-text">{phase.step}</span>
                   <h3 className="text-lg font-medium mt-3 mb-2">{phase.title}</h3>
                   <p className="text-sm text-muted leading-relaxed">{phase.desc}</p>

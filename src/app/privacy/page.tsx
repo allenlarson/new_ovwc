@@ -10,7 +10,7 @@ export default function PrivacyPage() {
     <>
       <section className="relative pt-40 pb-20 px-6 mesh-bg noise overflow-hidden">
         <div className="max-w-3xl mx-auto relative z-10">
-          <p className="text-sm uppercase tracking-widest text-accent-purple mb-4">Legal</p>
+          <p className="text-sm uppercase tracking-widest text-accent mb-4">Legal</p>
           <h1 className="text-4xl md:text-6xl font-medium leading-tight tracking-tight mb-4">
             Privacy <span className="font-serif italic gradient-text">Policy</span>
           </h1>
@@ -81,7 +81,7 @@ export default function PrivacyPage() {
             <h2 className="text-xl font-medium mb-3">9. Contact Us</h2>
             <p className="text-muted leading-relaxed">
               If you have any questions about this privacy policy or our data practices, please contact us at{' '}
-              <a href="mailto:hello@ovwc.net" className="text-accent-pink hover:underline">hello@ovwc.net</a>.
+              <a href="mailto:hello@ovwc.net" className="text-accent hover:underline">hello@ovwc.net</a>.
             </p>
           </div>
 

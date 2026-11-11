@@ -73,7 +73,7 @@ export default function ContactPopup({ open, onClose }: ContactPopupProps) {
             className="fixed inset-0 z-[80] flex items-center justify-center p-4"
             onClick={onClose}
           >
-            <div className="glass rounded-2xl p-8 w-full max-w-lg relative overflow-hidden" onClick={(e) => e.stopPropagation()}>
+            <div className="glass rounded-3xl p-6 sm:p-8 w-full max-w-lg relative overflow-hidden" onClick={(e) => e.stopPropagation()}>
               {/* Gradient accent line */}
               <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-accent-pink to-transparent" />
 
@@ -98,13 +98,13 @@ export default function ContactPopup({ open, onClose }: ContactPopupProps) {
                       <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
                     </svg>
                   </div>
-                  <h3 className="text-2xl font-medium mb-2">Message Sent!</h3>
+                  <h3 className="font-serif text-4xl font-normal tracking-tight mb-2">Message Sent!</h3>
                   <p className="text-muted">We&apos;ll get back to you within 24 hours.</p>
                 </motion.div>
               ) : (
                 <>
-                  <h3 className="text-2xl font-medium mb-1">
-                    Start a <span className="font-serif italic gradient-text">Project</span>
+                  <h3 className="font-serif text-4xl font-normal tracking-tight leading-none mb-2">
+                    Start a <span className="italic gradient-text">Project</span>
                   </h3>
                   <p className="text-muted text-sm mb-6">Tell us about your vision and we&apos;ll bring it to life.</p>
 
@@ -120,7 +120,7 @@ export default function ContactPopup({ open, onClose }: ContactPopupProps) {
                           required
                           value={formData.name}
                           onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                          className="w-full px-4 py-3 rounded-lg bg-foreground/5 border border-card-border text-foreground placeholder:text-muted/60 text-sm focus:outline-none focus:border-accent-purple transition-colors"
+                          className="w-full px-4 py-3 rounded-xl bg-foreground/5 border border-card-border text-foreground placeholder:text-muted/60 text-sm focus:outline-none focus:border-accent transition-colors"
                         />
                       </div>
                       <div>
@@ -132,7 +132,7 @@ export default function ContactPopup({ open, onClose }: ContactPopupProps) {
                           required
                           value={formData.email}
                           onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                          className="w-full px-4 py-3 rounded-lg bg-foreground/5 border border-card-border text-foreground placeholder:text-muted/60 text-sm focus:outline-none focus:border-accent-purple transition-colors"
+                          className="w-full px-4 py-3 rounded-xl bg-foreground/5 border border-card-border text-foreground placeholder:text-muted/60 text-sm focus:outline-none focus:border-accent transition-colors"
                         />
                       </div>
                     </div>
@@ -145,7 +145,7 @@ export default function ContactPopup({ open, onClose }: ContactPopupProps) {
                           placeholder="Phone"
                           value={formData.phone}
                           onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                          className="w-full px-4 py-3 rounded-lg bg-foreground/5 border border-card-border text-foreground placeholder:text-muted/60 text-sm focus:outline-none focus:border-accent-purple transition-colors"
+                          className="w-full px-4 py-3 rounded-xl bg-foreground/5 border border-card-border text-foreground placeholder:text-muted/60 text-sm focus:outline-none focus:border-accent transition-colors"
                         />
                       </div>
                       <div>
@@ -156,7 +156,7 @@ export default function ContactPopup({ open, onClose }: ContactPopupProps) {
                           placeholder="Company"
                           value={formData.company}
                           onChange={(e) => setFormData({ ...formData, company: e.target.value })}
-                          className="w-full px-4 py-3 rounded-lg bg-foreground/5 border border-card-border text-foreground placeholder:text-muted/60 text-sm focus:outline-none focus:border-accent-purple transition-colors"
+                          className="w-full px-4 py-3 rounded-xl bg-foreground/5 border border-card-border text-foreground placeholder:text-muted/60 text-sm focus:outline-none focus:border-accent transition-colors"
                         />
                       </div>
                     </div>
@@ -166,7 +166,7 @@ export default function ContactPopup({ open, onClose }: ContactPopupProps) {
                         id="popup-service"
                         value={formData.service}
                         onChange={(e) => setFormData({ ...formData, service: e.target.value })}
-                        className="w-full px-4 py-3 rounded-lg bg-foreground/5 border border-card-border text-foreground text-sm focus:outline-none focus:border-accent-purple transition-colors"
+                        className="w-full px-4 py-3 rounded-xl bg-foreground/5 border border-card-border text-foreground text-sm focus:outline-none focus:border-accent transition-colors"
                       >
                         <option value="" className="bg-background text-foreground">Select a Service</option>
                         <option value="web-design" className="bg-background text-foreground">Web Design</option>
@@ -186,7 +186,7 @@ export default function ContactPopup({ open, onClose }: ContactPopupProps) {
                         rows={4}
                         value={formData.message}
                         onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                        className="w-full px-4 py-3 rounded-lg bg-foreground/5 border border-card-border text-foreground placeholder:text-muted/60 text-sm focus:outline-none focus:border-accent-purple transition-colors resize-none"
+                        className="w-full px-4 py-3 rounded-xl bg-foreground/5 border border-card-border text-foreground placeholder:text-muted/60 text-sm focus:outline-none focus:border-accent transition-colors resize-none"
                       />
                     </div>
                     {error && (
@@ -195,7 +195,7 @@ export default function ContactPopup({ open, onClose }: ContactPopupProps) {
                     <button
                       type="submit"
                       disabled={sending}
-                      className="w-full py-3 rounded-lg bg-gradient-to-r from-accent-pink to-accent-purple text-white font-medium text-sm hover:shadow-lg hover:shadow-accent-purple/25 transition-all duration-300 hover:scale-[1.02] cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:scale-100"
+                      className="w-full py-3.5 rounded-full bg-gradient-to-r from-accent-pink to-accent-purple text-white font-medium text-base hover:shadow-lg hover:shadow-accent-purple/25 transition-all duration-300 hover:scale-[1.02] cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:scale-100"
                     >
                       {sending ? 'Sending...' : 'Send Message'}
                     </button>

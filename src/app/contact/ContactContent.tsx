@@ -66,35 +66,35 @@ export default function ContactContent() {
             <SectionReveal>
               <div className="space-y-10">
                 <div>
-                  <h3 className="text-sm uppercase tracking-widest text-accent-purple mb-4">
+                  <h3 className="text-sm uppercase tracking-widest text-accent mb-4">
                     Location
                   </h3>
                   <p className="text-muted leading-relaxed">Norfolk, VA</p>
                 </div>
                 <div>
-                  <h3 className="text-sm uppercase tracking-widest text-accent-purple mb-4">
+                  <h3 className="text-sm uppercase tracking-widest text-accent mb-4">
                     Phone
                   </h3>
                   <a
                     href="tel:9492347170"
-                    className="text-foreground hover:text-accent-pink transition-colors"
+                    className="text-foreground hover:text-accent transition-colors"
                   >
                     (949) 234-7170
                   </a>
                 </div>
                 <div>
-                  <h3 className="text-sm uppercase tracking-widest text-accent-purple mb-4">
+                  <h3 className="text-sm uppercase tracking-widest text-accent mb-4">
                     Email
                   </h3>
                   <a
                     href="mailto:hello@ovwc.net"
-                    className="text-foreground hover:text-accent-pink transition-colors"
+                    className="text-foreground hover:text-accent transition-colors"
                   >
                     hello@ovwc.net
                   </a>
                 </div>
                 <div>
-                  <h3 className="text-sm uppercase tracking-widest text-accent-purple mb-4">
+                  <h3 className="text-sm uppercase tracking-widest text-accent mb-4">
                     Hours
                   </h3>
                   <p className="text-muted leading-relaxed">
@@ -104,7 +104,7 @@ export default function ContactContent() {
                   </p>
                 </div>
                 <div>
-                  <h3 className="text-sm uppercase tracking-widest text-accent-purple mb-4">
+                  <h3 className="text-sm uppercase tracking-widest text-accent mb-4">
                     Follow Us
                   </h3>
                   <div className="flex gap-4">
@@ -126,7 +126,7 @@ export default function ContactContent() {
                         target="_blank"
                         rel="noopener noreferrer"
                         aria-label={social.label}
-                        className="w-10 h-10 rounded-full border border-card-border flex items-center justify-center hover:border-accent-pink hover:text-accent-pink transition-colors"
+                        className="w-10 h-10 rounded-full border border-card-border flex items-center justify-center hover:border-accent hover:text-accent transition-colors"
                       >
                         <svg
                           className="w-4 h-4"
@@ -191,7 +191,7 @@ export default function ContactContent() {
                           message: '',
                         });
                       }}
-                      className="px-6 py-3 rounded-full border border-card-border hover:border-accent-purple/50 transition-colors"
+                      className="px-6 py-3 rounded-full border border-card-border hover:border-accent/50 transition-colors"
                     >
                       Send Another Message
                     </button>
@@ -224,7 +224,7 @@ export default function ContactContent() {
                             onChange={e =>
                               setFormData({ ...formData, name: e.target.value })
                             }
-                            className="w-full px-4 py-3 rounded-lg bg-foreground/5 border border-card-border text-foreground placeholder:text-muted/60 focus:outline-none focus:border-accent-purple transition-colors"
+                            className="w-full px-4 py-3 rounded-lg bg-foreground/5 border border-card-border text-foreground placeholder:text-muted/60 focus:outline-none focus:border-accent transition-colors"
                             placeholder="John Doe"
                           />
                         </div>
@@ -246,7 +246,7 @@ export default function ContactContent() {
                                 email: e.target.value,
                               })
                             }
-                            className="w-full px-4 py-3 rounded-lg bg-foreground/5 border border-card-border text-foreground placeholder:text-muted/60 focus:outline-none focus:border-accent-purple transition-colors"
+                            className="w-full px-4 py-3 rounded-lg bg-foreground/5 border border-card-border text-foreground placeholder:text-muted/60 focus:outline-none focus:border-accent transition-colors"
                             placeholder="john@company.com"
                           />
                         </div>
@@ -269,7 +269,7 @@ export default function ContactContent() {
                                 phone: e.target.value,
                               })
                             }
-                            className="w-full px-4 py-3 rounded-lg bg-foreground/5 border border-card-border text-foreground placeholder:text-muted/60 focus:outline-none focus:border-accent-purple transition-colors"
+                            className="w-full px-4 py-3 rounded-lg bg-foreground/5 border border-card-border text-foreground placeholder:text-muted/60 focus:outline-none focus:border-accent transition-colors"
                             placeholder="(555) 123-4567"
                           />
                         </div>
@@ -290,7 +290,7 @@ export default function ContactContent() {
                                 company: e.target.value,
                               })
                             }
-                            className="w-full px-4 py-3 rounded-lg bg-foreground/5 border border-card-border text-foreground placeholder:text-muted/60 focus:outline-none focus:border-accent-purple transition-colors"
+                            className="w-full px-4 py-3 rounded-lg bg-foreground/5 border border-card-border text-foreground placeholder:text-muted/60 focus:outline-none focus:border-accent transition-colors"
                             placeholder="Your Company"
                           />
                         </div>
@@ -311,7 +311,7 @@ export default function ContactContent() {
                               service: e.target.value,
                             })
                           }
-                          className="w-full px-4 py-3 rounded-lg bg-foreground/5 border border-card-border text-foreground focus:outline-none focus:border-accent-purple transition-colors"
+                          className="w-full px-4 py-3 rounded-lg bg-foreground/5 border border-card-border text-foreground focus:outline-none focus:border-accent transition-colors"
                         >
                           <option value="" className="bg-background text-foreground">Select a service...</option>
                           <option value="web-design" className="bg-background text-foreground">Web Design & Development</option>
@@ -341,7 +341,7 @@ export default function ContactContent() {
                               message: e.target.value,
                             })
                           }
-                          className="w-full px-4 py-3 rounded-lg bg-foreground/5 border border-card-border text-foreground placeholder:text-muted/60 focus:outline-none focus:border-accent-purple transition-colors resize-none"
+                          className="w-full px-4 py-3 rounded-lg bg-foreground/5 border border-card-border text-foreground placeholder:text-muted/60 focus:outline-none focus:border-accent transition-colors resize-none"
                           placeholder="Tell us about your project, timeline, and budget..."
                         />
                       </div>
@@ -353,7 +353,7 @@ export default function ContactContent() {
                       <button
                         type="submit"
                         disabled={sending}
-                        className="w-full py-4 rounded-lg bg-gradient-to-r from-accent-pink to-accent-purple text-white font-medium text-lg hover:shadow-xl hover:shadow-accent-purple/20 transition-all duration-300 hover:scale-[1.02] disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:scale-100"
+                        className="w-full py-4 rounded-full bg-gradient-to-r from-accent-pink to-accent-purple text-white font-medium text-lg hover:shadow-xl hover:shadow-accent-purple/20 transition-all duration-300 hover:scale-[1.02] disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:scale-100"
                       >
                         {sending ? 'Sending...' : 'Send Message'}
                       </button>

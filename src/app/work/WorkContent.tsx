@@ -35,7 +35,7 @@ export default function WorkContent() {
                 <select
                   value={activeFilter}
                   onChange={e => setActiveFilter(e.target.value)}
-                  className="w-full px-4 py-3 rounded-xl border border-card-border bg-background text-foreground text-sm font-medium appearance-none focus:outline-none focus:border-accent-purple/50 transition-colors duration-200"
+                  className="w-full px-4 py-3 rounded-xl border border-card-border bg-background text-foreground text-sm font-medium appearance-none focus:outline-none focus:border-accent/50 transition-colors duration-200"
                   style={{
                     backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23888' d='M6 8L1 3h10z'/%3E%3C/svg%3E")`,
                     backgroundRepeat: 'no-repeat',
