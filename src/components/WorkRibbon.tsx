@@ -1,6 +1,7 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
+import NextImage from 'next/image';
 import Link from 'next/link';
 import type { Mesh, PlaneGeometry, ShaderMaterial, Vector3 } from 'three';
 
@@ -50,7 +51,39 @@ void main(){
 type Slot = { x: number; y: number; w: number; h: number; vw: number; vh: number; c: number; r: number };
 type Card = { i: number; title: string; geo: PlaneGeometry; mat: ShaderMaterial; mesh: Mesh; rect: Slot | null };
 
+// Shown when the browser can't (or stops being able to) run WebGL, so the section never goes blank.
+function WorkGrid() {
+  return (
+    <section className="ov-workgrid" id="work" aria-labelledby="ov-workgrid-h">
+      <div className="ov-section">
+        <h2 id="ov-workgrid-h" className="ov-h2">Recent <em>work.</em></h2>
+        <p className="ov-workgrid-cap">Real projects, real results.</p>
+        <ul className="ov-workgrid-list">
+          {WORK.slice(0, 6).map((w) => (
+            <li key={w.title} className="ov-workgrid-card">
+              <div className="ov-workgrid-img">
+                <NextImage src={w.image} alt={`${w.title} website`} fill sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw" />
+              </div>
+              <span>{w.title}</span>
+            </li>
+          ))}
+        </ul>
+        <Link href="/work" className="ov-link ov-workgrid-more">
+          See all projects
+          <svg className="ov-arrow" viewBox="0 0 16 16" aria-hidden="true"><path d="M2 8h11M9 4l4 4-4 4" /></svg>
+        </Link>
+      </div>
+    </section>
+  );
+}
+
 export default function WorkRibbon() {
+  const [fallback, setFallback] = useState(false);
+  const onFail = useCallback(() => setFallback(true), []);
+  return fallback ? <WorkGrid /> : <Ribbon onFail={onFail} />;
+}
+
+function Ribbon({ onFail }: { onFail: () => void }) {
   const trackRef = useRef<HTMLDivElement>(null);
   const stageRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -73,10 +106,38 @@ export default function WorkRibbon() {
     let disposed = false;
     let cleanup: (() => void) | undefined;
 
+    const fail = () => {
+      if (disposed) return;
+      disposed = true;
+      cleanup?.();
+      cleanup = undefined;
+      onFail();
+    };
+
     import('three').then((THREE) => {
       if (disposed) return;
 
-      const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+      let renderer: InstanceType<typeof THREE.WebGLRenderer>;
+      try {
+        // antialias is off: the shader already smooths the card edges, and it saves a lot of GPU memory.
+        // failIfMajorPerformanceCaveat skips slow software rendering in favour of the plain grid.
+        renderer = new THREE.WebGLRenderer({
+          canvas,
+          antialias: false,
+          alpha: true,
+          powerPreference: 'default',
+          failIfMajorPerformanceCaveat: true,
+        });
+      } catch {
+        fail();
+        return;
+      }
+      // If the GPU drops the context mid-scroll, swap to the grid instead of leaving a blank section.
+      const onLost = (e: Event) => {
+        e.preventDefault();
+        fail();
+      };
+      canvas.addEventListener('webglcontextlost', onLost);
       renderer.setClearColor(0, 0);
       renderer.outputColorSpace = THREE.LinearSRGBColorSpace;
       const scene = new THREE.Scene();
@@ -174,7 +235,7 @@ export default function WorkRibbon() {
         W = stage.clientWidth;
         H = stage.clientHeight;
         asp = W / H;
-        renderer.setPixelRatio(Math.min(window.devicePixelRatio, W < 700 ? 1.5 : 2));
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
         renderer.setSize(W, H, false);
         camera.aspect = asp;
         camera.fov = asp < 16 / 9 ? (Math.atan(0.561 / asp) * 360) / Math.PI : FOV;
@@ -355,6 +416,7 @@ export default function WorkRibbon() {
         io.disconnect();
         window.removeEventListener('resize', resize);
         stage.removeEventListener('pointermove', onMove);
+        canvas.removeEventListener('webglcontextlost', onLost);
         cards.forEach((c) => {
           c.geo.dispose();
           (c.mat.uniforms.map.value as { dispose: () => void }).dispose();
@@ -362,13 +424,13 @@ export default function WorkRibbon() {
         });
         renderer.dispose();
       };
-    });
+    }).catch(fail);
 
     return () => {
       disposed = true;
       cleanup?.();
     };
-  }, []);
+  }, [onFail]);
 
   return (
     <div className="ov-ribbon" id="work" ref={trackRef}>

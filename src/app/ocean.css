@@ -245,6 +245,16 @@
 }
 .ov-ribbon-rule { position: absolute; left: 3.5vw; right: 3.5vw; top: 50%; height: 1px; background: var(--line); transform-origin: left; transform: scaleX(0); }
 .ov-ribbon-more { position: absolute; left: 50%; bottom: 28px; transform: translateX(-50%); opacity: 0; white-space: nowrap; }
+/* Plain grid used when WebGL is unavailable or the GPU drops it */
+.ov-workgrid .ov-h2 em { color: var(--accent); }
+.ov-workgrid-cap { margin-top: 12px; font-size: 12px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-2); }
+.ov-workgrid-list { list-style: none; margin: 40px 0 0; padding: 0; display: grid; gap: 20px; grid-template-columns: 1fr; }
+@media (min-width: 640px) { .ov-workgrid-list { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 1024px) { .ov-workgrid-list { grid-template-columns: repeat(3, 1fr); gap: 24px; } }
+.ov-workgrid-card span { display: block; margin-top: 12px; font-size: 15px; font-weight: 600; }
+.ov-workgrid-img { position: relative; aspect-ratio: 21 / 13.2; border-radius: 14px; overflow: hidden; border: 1px solid var(--line); }
+.ov-workgrid-img img { object-fit: cover; object-position: top; }
+.ov-workgrid-more { margin-top: 32px; }
 .ov-ribbon-name {
   position: absolute; left: 0; top: 0; padding: 6px 11px; border-radius: 99px; background: var(--ink); color: var(--bg);
   font-size: 12px; font-weight: 600; letter-spacing: 0.02em; white-space: nowrap; pointer-events: none; opacity: 0; transition: opacity 0.16s;
