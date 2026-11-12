@@ -5,6 +5,7 @@ import Link from 'next/link';
 import ContactPopup from '@/components/ContactPopup';
 import SiteFooter from '@/components/SiteFooter';
 import WorkRibbon from '@/components/WorkRibbon';
+import { faqs } from '@/data/faqs';
 
 const HERO_VIDEO = 'https://stream.mux.com/8wrHPCX2dC3msyYU9ObwqNdm00u3ViXvOSHUMRYSEe5Q.m3u8';
 
@@ -71,6 +72,7 @@ function Arrow() {
 
 export default function OceanContent() {
   const [popupOpen, setPopupOpen] = useState(false);
+  const [openFaq, setOpenFaq] = useState<number | null>(0);
   const rootRef = useRef<HTMLDivElement>(null);
   const plateRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -392,6 +394,42 @@ export default function OceanContent() {
             </blockquote>
             <figcaption><strong>Rick B.</strong> · 213 United Real Estate</figcaption>
           </figure>
+        </section>
+
+        {/* FAQ */}
+        <section className="ov-section ov-faq" id="faq">
+          <div className="ov-faq-head">
+            <h2 className="ov-h2 ov-reveal">Questions, <em>answered.</em></h2>
+            <p className="ov-lede ov-reveal">
+              Don&apos;t see yours? Email{' '}
+              <a href="mailto:hello@ovwc.net">hello@ovwc.net</a>{' '}
+              and we&apos;ll get back to you.
+            </p>
+          </div>
+          <div className="ov-faq-list ov-reveal">
+            {faqs.map((faq, i) => {
+              const open = openFaq === i;
+              return (
+                <div key={faq.q} className={open ? 'ov-faq-item is-open' : 'ov-faq-item'}>
+                  <h3>
+                    <button
+                      type="button"
+                      id={'faq-q-' + i}
+                      aria-expanded={open}
+                      aria-controls={'faq-a-' + i}
+                      onClick={() => setOpenFaq(open ? null : i)}
+                    >
+                      <span>{faq.q}</span>
+                      <span className="ov-faq-icon" aria-hidden="true" />
+                    </button>
+                  </h3>
+                  <div className="ov-faq-panel" id={'faq-a-' + i} role="region" aria-labelledby={'faq-q-' + i} inert={!open}>
+                    <div><p>{faq.a}</p></div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
         </section>
 
         {/* CTA + FOOTER */}

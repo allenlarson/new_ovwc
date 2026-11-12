@@ -289,6 +289,35 @@
 .ov-quote figcaption { margin-top: 24px; font-size: 15px; color: var(--ink-3); }
 .ov-quote figcaption strong { color: var(--ink); font-weight: 600; }
 
+/* ── FAQ ───────────────────────────────────────────── */
+.ov-faq { display: grid; gap: 36px; }
+.ov-faq-head { display: grid; gap: 20px; align-content: start; }
+.ov-faq-head a { color: var(--ink); font-weight: 600; text-decoration: underline; text-decoration-color: var(--accent); text-underline-offset: 4px; }
+.ov-faq-list { border-top: 1px solid var(--line); }
+.ov-faq-item { border-bottom: 1px solid var(--line); }
+.ov-faq-item h3 { margin: 0; }
+.ov-faq-item button {
+  width: 100%; min-height: 44px; padding: 24px 0; border: 0; background: none; color: var(--ink); cursor: pointer;
+  display: flex; align-items: center; justify-content: space-between; gap: 20px; text-align: left;
+  font: 600 18px/1.35 var(--sans); letter-spacing: -0.01em; transition: color 0.2s;
+}
+.ov-faq-item button:hover, .ov-faq-item.is-open button { color: var(--accent); }
+.ov-faq-icon {
+  position: relative; flex-shrink: 0; width: 40px; height: 40px; border-radius: 999px;
+  border: 1px solid var(--glass-border); background: var(--pill-bg); transition: background 0.25s, transform 0.4s var(--ease);
+}
+.ov-faq-icon::before, .ov-faq-icon::after {
+  content: ''; position: absolute; left: 50%; top: 50%; width: 14px; height: 1.5px; background: currentColor;
+  transform: translate(-50%, -50%); transition: transform 0.4s var(--ease);
+}
+.ov-faq-icon::after { transform: translate(-50%, -50%) rotate(90deg); }
+.ov-faq-item.is-open .ov-faq-icon { transform: rotate(180deg); }
+.ov-faq-item.is-open .ov-faq-icon::after { transform: translate(-50%, -50%) rotate(0deg); }
+.ov-faq-panel { display: grid; grid-template-rows: 0fr; transition: grid-template-rows 0.45s var(--ease); }
+.ov-faq-item.is-open .ov-faq-panel { grid-template-rows: 1fr; }
+.ov-faq-panel > div { overflow: hidden; }
+.ov-faq-panel p { max-width: 680px; padding-bottom: 26px; font-size: 16px; line-height: 1.65; color: var(--ink-2); }
+
 /* ── CTA + footer ──────────────────────────────────── */
 .ov-end { min-height: 100svh; padding: 130px var(--pad) 26px; display: flex; flex-direction: column; max-width: 1360px; margin: 0 auto; }
 .ov-cta { position: relative; overflow: hidden; width: 100%; max-width: 880px; margin: 0 auto; padding: 44px 22px 36px; border-radius: 14px; text-align: center; background: var(--cta-bg); }
@@ -370,6 +399,8 @@
   .ov-stairs { display: block; position: relative; height: 810px; }
   .ov-role { position: absolute; width: 23.5%; min-height: 400px; left: calc(var(--i) * 25.5%); top: calc(var(--i) * 130px); }
   .ov-quote { margin-top: 150px; }
+  .ov-faq { grid-template-columns: 400px minmax(0, 1fr); gap: 96px; }
+  .ov-faq-item button { font-size: 20px; }
 }
 
 /* ── Reduced motion ────────────────────────────────── */
