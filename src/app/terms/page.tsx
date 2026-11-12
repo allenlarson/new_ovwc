@@ -1,9 +1,11 @@
 import type { Metadata } from 'next';
+import { pageMetadata } from '@/lib/site';
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: 'Terms of Service',
   description: 'Terms of service for Oceanview Web Co — the rules and guidelines governing use of our website and services.',
-};
+  path: '/terms',
+});
 
 export default function TermsPage() {
   return (

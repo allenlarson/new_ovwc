@@ -5,6 +5,87 @@ import './globals.css';
 import './ocean.css';
 import { ThemeProvider } from '@/context/ThemeContext';
 import SiteChrome from '@/components/SiteChrome';
+import { SITE_URL } from '@/lib/site';
+
+const DESCRIPTION =
+  'Oceanview Web Co is a web design and digital marketing agency in Norfolk, Virginia. We build websites that turn visitors into clients for real estate, law firms, healthcare, and small businesses in Hampton Roads and nationwide.';
+
+// Structured business details for Google and AI search (who we are, where, what we do).
+const businessSchema = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'ProfessionalService',
+      '@id': `${SITE_URL}/#business`,
+      name: 'Oceanview Web Co.',
+      alternateName: ['OVWC', 'Oceanview Web Company'],
+      url: SITE_URL,
+      logo: `${SITE_URL}/icon-512.png`,
+      image: `${SITE_URL}/og.png`,
+      description: DESCRIPTION,
+      email: 'hello@ovwc.net',
+      telephone: '+19492347170',
+      address: {
+        '@type': 'PostalAddress',
+        addressLocality: 'Norfolk',
+        addressRegion: 'VA',
+        addressCountry: 'US',
+      },
+      areaServed: [
+        { '@type': 'City', name: 'Norfolk, VA' },
+        { '@type': 'City', name: 'Virginia Beach, VA' },
+        { '@type': 'City', name: 'Chesapeake, VA' },
+        { '@type': 'City', name: 'Portsmouth, VA' },
+        { '@type': 'City', name: 'Suffolk, VA' },
+        { '@type': 'City', name: 'Hampton, VA' },
+        { '@type': 'City', name: 'Newport News, VA' },
+        { '@type': 'Country', name: 'United States' },
+      ],
+      openingHoursSpecification: {
+        '@type': 'OpeningHoursSpecification',
+        dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
+        opens: '09:00',
+        closes: '17:00',
+      },
+      priceRange: '$$$',
+      knowsAbout: [
+        'Web design',
+        'Website development',
+        'Search engine optimization',
+        'Local SEO',
+        'Logo design',
+        'Copywriting',
+        'E-commerce development',
+        'Google Ads',
+        'Meta Ads',
+      ],
+      hasOfferCatalog: {
+        '@type': 'OfferCatalog',
+        name: 'Web design and marketing services',
+        itemListElement: [
+          ['Custom Web Design & Development', 'Custom, responsive websites built to convert visitors into clients. Business sites typically start at $3,000 and launch in 4–6 weeks.'],
+          ['Search Engine Optimization', 'On-page, technical, and local SEO with keyword research, content strategy, and monthly reporting.'],
+          ['Logo Design & Branding', 'Brand identities and logos designed from concept to final mark.'],
+          ['Copywriting', 'Conversion-focused website copy written for your audience.'],
+          ['E-Commerce Development', 'Online stores with secure payments, inventory management, shipping, and optimized checkout.'],
+          ['Paid Advertising', 'Google and Meta ad campaigns built and managed for measurable ROI.'],
+        ].map(([name, description]) => ({
+          '@type': 'Offer',
+          itemOffered: { '@type': 'Service', name, description, provider: { '@id': `${SITE_URL}/#business` } },
+        })),
+      },
+      sameAs: ['https://www.facebook.com/OVWebCo/', 'https://www.instagram.com/ovwebco/'],
+    },
+    {
+      '@type': 'WebSite',
+      '@id': `${SITE_URL}/#website`,
+      url: SITE_URL,
+      name: 'Oceanview Web Co.',
+      publisher: { '@id': `${SITE_URL}/#business` },
+      inLanguage: 'en-US',
+    },
+  ],
+};
 
 const dmSans = DM_Sans({
   subsets: ['latin'],
@@ -20,13 +101,12 @@ const instrumentSerif = Instrument_Serif({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://ovwc.net'),
+  metadataBase: new URL(SITE_URL),
   title: {
-    default: 'Oceanview Web Co. | Web Design & Digital Marketing Agency',
+    default: 'Oceanview Web Co. | Web Design & Digital Marketing Agency in Norfolk, VA',
     template: '%s | Oceanview Web Co.',
   },
-  description:
-    'Oceanview Web Co is a premium web design and digital marketing agency. We build websites that turn visitors into clients for real estate, law firms, healthcare, and small businesses.',
+  description: DESCRIPTION,
   keywords: [
     'web design agency',
     'digital marketing agency',
@@ -45,7 +125,7 @@ export const metadata: Metadata = {
         alt: 'Oceanview Web Co. — We Build Websites That Turn Visitors Into Clients',
       },
     ],
-    url: 'https://ovwc.net',
+    url: '/',
     siteName: 'Oceanview Web Co.',
     locale: 'en_US',
     type: 'website',
@@ -100,32 +180,7 @@ export default function RootLayout({
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              '@context': 'https://schema.org',
-              '@type': 'ProfessionalService',
-              name: 'Oceanview Web Co.',
-              url: 'https://ovwc.net',
-              logo: 'https://ovwc.net/og.png',
-              image: 'https://ovwc.net/og.png',
-              description:
-                'Oceanview Web Co is a premium web design and digital marketing agency. We build websites that turn visitors into clients for real estate, law firms, healthcare, and small businesses.',
-              email: 'hello@ovwc.net',
-              telephone: '+19492347170',
-              areaServed: 'United States',
-              priceRange: '$$$',
-              sameAs: [
-                'https://www.facebook.com/OVWebCo/',
-                'https://www.instagram.com/ovwebco/',
-              ],
-              serviceType: [
-                'Web Design',
-                'SEO',
-                'Logo Design',
-                'Copywriting',
-                'E-Commerce Development',
-                'Paid Advertising',
-              ],
-            }),
+            __html: JSON.stringify(businessSchema),
           }}
         />
       </head>

@@ -1,5 +1,10 @@
+import type { Metadata } from 'next';
 import HomeContent from './HomeContent';
 import { faqs } from '@/data/faqs';
+
+export const metadata: Metadata = {
+  alternates: { canonical: '/' },
+};
 
 export default function Home() {
   // Matches the FAQ section shown on the homepage

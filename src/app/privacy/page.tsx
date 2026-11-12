@@ -1,9 +1,11 @@
 import type { Metadata } from 'next';
+import { pageMetadata } from '@/lib/site';
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: 'Privacy Policy',
   description: 'Privacy policy for Oceanview Web Co — how we collect, use, and protect your information.',
-};
+  path: '/privacy',
+});
 
 export default function PrivacyPage() {
   return (
