@@ -78,7 +78,8 @@
   --wordmark: linear-gradient(180deg, rgba(1, 121, 168, 0.22), rgba(1, 121, 168, 0) 85%);
 }
 
-.ov figure, .ov blockquote { margin: 0; }
+/* low-specificity reset so component spacing (e.g. .ov-quote) still wins */
+.ov :where(figure, blockquote) { margin: 0; }
 .ov em { font-family: var(--serif); font-style: italic; font-weight: 400; }
 .ov :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 6px; }
 
@@ -408,7 +409,7 @@
   .ov-uses-head .ov-lede { max-width: 440px; margin-left: auto; }
   .ov-stairs { display: block; position: relative; height: 810px; }
   .ov-role { position: absolute; width: 23.5%; min-height: 400px; left: calc(var(--i) * 25.5%); top: calc(var(--i) * 130px); }
-  .ov-quote { margin-top: 150px; }
+  .ov-quote { margin-top: 110px; }
   .ov-faq { grid-template-columns: 400px minmax(0, 1fr); gap: 96px; }
   .ov-faq-item button { font-size: 20px; }
 }
