@@ -7,7 +7,8 @@ import SiteFooter from '@/components/SiteFooter';
 import WorkRibbon from '@/components/WorkRibbon';
 import { faqs } from '@/data/faqs';
 
-const HERO_VIDEO = 'https://stream.mux.com/8wrHPCX2dC3msyYU9ObwqNdm00u3ViXvOSHUMRYSEe5Q.m3u8';
+// Served from our own /public folder so a third-party host can't switch it off.
+const HERO_VIDEO = '/video/hero-ribbon.mp4';
 
 const stats = [
   { value: '50+', label: 'five-star Google reviews' },
@@ -80,34 +81,23 @@ export default function OceanContent() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const endRef = useRef<HTMLElement>(null);
 
-  // Hero video (HLS): native in Safari, hls.js elsewhere
+  // Hero video: a plain MP4, attached after load so it never delays the page.
+  // Skipped for reduced motion and data-saver visitors, who keep the gradient background.
   useEffect(() => {
     const video = videoRef.current;
     if (!video) return;
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const conn = (navigator as Navigator & { connection?: { saveData?: boolean; effectiveType?: string } }).connection;
+    if (conn?.saveData || conn?.effectiveType === '2g' || conn?.effectiveType === 'slow-2g') return;
 
-    let destroy: (() => void) | undefined;
-    let cancelled = false;
     const reveal = () => video.classList.add('is-playing');
     video.addEventListener('playing', reveal);
-
-    // Prefer hls.js wherever it works; fall back to native HLS (iOS Safari)
-    import('hls.js').then(({ default: Hls }) => {
-      if (cancelled) return;
-      if (Hls.isSupported()) {
-        const hls = new Hls({ capLevelToPlayerSize: true });
-        hls.loadSource(HERO_VIDEO);
-        hls.attachMedia(video);
-        hls.on(Hls.Events.MANIFEST_PARSED, () => video.play().catch(() => {}));
-        destroy = () => hls.destroy();
-      } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
-        video.src = HERO_VIDEO;
-      }
-    });
+    video.src = HERO_VIDEO;
+    video.play().catch(() => {});
     return () => {
-      cancelled = true;
       video.removeEventListener('playing', reveal);
-      destroy?.();
+      video.removeAttribute('src');
+      video.load();
     };
   }, []);
 
